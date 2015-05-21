@@ -1,0 +1,790 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V8.10.3.10338/W32 for 8051         20/May/2015  19:32:56 #
+# Copyright 2004-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Core               =  plain                                              #
+#    Code model         =  banked                                             #
+#    Data model         =  large                                              #
+#    Calling convention =  xdata reentrant                                    #
+#    Constant location  =  data_rom                                           #
+#    Dptr setup         =  1,16                                               #
+#    Source file        =  D:\zigbee\4. Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð #
+#                          ­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Proj #
+#                          ects\zstack\Samples\SampleApp\Source\crc8.c        #
+#    Command line       =  -f "D:\zigbee\4. Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé #
+#                          \2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\ #
+#                          Projects\zstack\Samples\SampleApp\CC2530DB\..\..\. #
+#                          .\Tools\CC2530DB\f8wRouter.cfg" (-DCPU32MHZ        #
+#                          -DROOT=__near_func -DMAC_CFG_APP_PENDING_QUEUE=TRU #
+#                          E -DRTR_NWK -DBLINK_LEDS) -f "D:\zigbee\4.         #
+#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
+#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
+#                          amples\SampleApp\CC2530DB\..\..\..\Tools\CC2530DB\ #
+#                          f8wConfig.cfg" (-DSECURE=0 -DZG_SECURE_DYNAMIC=0   #
+#                          -DREFLECTOR -DDEFAULT_CHANLIST=0x00000800          #
+#                          -DZDAPP_CONFIG_PAN_ID=0xFFF1                       #
+#                          -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MA #
+#                          SK=0x007F -DBEACON_REQUEST_DELAY=100               #
+#                          -DBEACON_REQ_DELAY_MASK=0x00FF                     #
+#                          -DROUTE_EXPIRY_TIME=30 -DAPSC_ACK_WAIT_DURATION_PO #
+#                          LLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7             #
+#                          -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3    #
+#                          -DNWK_MAX_DATA_RETRIES=2                           #
+#                          -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9         #
+#                          -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40           #
+#                          -DNWK_MAX_BINDING_ENTRIES=4                        #
+#                          -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x01,  #
+#                          0x03, 0x05, 0x07, 0x09, 0x0B, 0x0D, 0x0F, 0x00,    #
+#                          0x02, 0x04, 0x06, 0x08, 0x0A, 0x0C, 0x0D}"         #
+#                          -DMAC_MAX_FRAME_SIZE=116 "-DCONST=const __code"    #
+#                          -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=FALSE     #
+#                          -DPOLL_RATE=1000 -DQUEUED_POLL_RATE=100            #
+#                          -DRESPONSE_POLL_RATE=100) -DREJOIN_POLL_RATE=440   #
+#                          "D:\zigbee\4. Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2. #
+#                          Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Pro #
+#                          jects\zstack\Samples\SampleApp\Source\crc8.c" -D   #
+#                          ZIGBEEPRO -D ZTOOL_P1 -D MT_TASK -D MT_SYS_FUNC    #
+#                          -D MT_ZDO_FUNC -D LCD_SUPPORTED=DEBUG -lC          #
+#                          "D:\zigbee\4. Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2. #
+#                          Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Pro #
+#                          jects\zstack\Samples\SampleApp\CC2530DB\RouterEB-P #
+#                          ro\List\" -lA "D:\zigbee\4.                        #
+#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
+#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
+#                          amples\SampleApp\CC2530DB\RouterEB-Pro\List\"      #
+#                          --diag_suppress Pe001,Pa010 -o "D:\zigbee\4.       #
+#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
+#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
+#                          amples\SampleApp\CC2530DB\RouterEB-Pro\Obj\" -e    #
+#                          --debug --core=plain --dptr=16,1                   #
+#                          --data_model=large --code_model=banked             #
+#                          --calling_convention=xdata_reentrant               #
+#                          --place_constants=data_rom --nr_virtual_regs 16    #
+#                          -I "D:\zigbee\4. Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé #
+#                          \2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\ #
+#                          Projects\zstack\Samples\SampleApp\CC2530DB\" -I    #
+#                          "D:\zigbee\4. Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2. #
+#                          Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Pro #
+#                          jects\zstack\Samples\SampleApp\CC2530DB\..\SOURCE\ #
+#                          " -I "D:\zigbee\4. Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡Êµ #
+#                          Ñé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4. #
+#                          0\Projects\zstack\Samples\SampleApp\CC2530DB\..\.. #
+#                          \..\ZMAIN\TI2530DB\" -I "D:\zigbee\4.              #
+#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
+#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
+#                          amples\SampleApp\CC2530DB\..\..\..\..\..\COMPONENT #
+#                          S\MT\" -I "D:\zigbee\4. Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú» #
+#                          ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\ZStack-CC2530-2.3.0 #
+#                          -1.4.0\Projects\zstack\Samples\SampleApp\CC2530DB\ #
+#                          ..\..\..\..\..\COMPONENTS\HAL\INCLUDE\" -I         #
+#                          "D:\zigbee\4. Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2. #
+#                          Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Pro #
+#                          jects\zstack\Samples\SampleApp\CC2530DB\..\..\..\. #
+#                          .\..\COMPONENTS\HAL\TARGET\CC2530EB\" -I           #
+#                          "D:\zigbee\4. Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2. #
+#                          Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Pro #
+#                          jects\zstack\Samples\SampleApp\CC2530DB\..\..\..\. #
+#                          .\..\COMPONENTS\OSAL\MCU\CCSOC\" -I "D:\zigbee\4.  #
+#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
+#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
+#                          amples\SampleApp\CC2530DB\..\..\..\..\..\COMPONENT #
+#                          S\OSAL\INCLUDE\" -I "D:\zigbee\4.                  #
+#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
+#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
+#                          amples\SampleApp\CC2530DB\..\..\..\..\..\COMPONENT #
+#                          S\STACK\AF\" -I "D:\zigbee\4.                      #
+#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
+#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
+#                          amples\SampleApp\CC2530DB\..\..\..\..\..\COMPONENT #
+#                          S\STACK\NWK\" -I "D:\zigbee\4.                     #
+#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
+#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
+#                          amples\SampleApp\CC2530DB\..\..\..\..\..\COMPONENT #
+#                          S\STACK\SEC\" -I "D:\zigbee\4.                     #
+#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
+#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
+#                          amples\SampleApp\CC2530DB\..\..\..\..\..\COMPONENT #
+#                          S\STACK\SAPI\" -I "D:\zigbee\4.                    #
+#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
+#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
+#                          amples\SampleApp\CC2530DB\..\..\..\..\..\COMPONENT #
+#                          S\STACK\SYS\" -I "D:\zigbee\4.                     #
+#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
+#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
+#                          amples\SampleApp\CC2530DB\..\..\..\..\..\COMPONENT #
+#                          S\STACK\ZDO\" -I "D:\zigbee\4.                     #
+#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
+#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
+#                          amples\SampleApp\CC2530DB\..\..\..\..\..\COMPONENT #
+#                          S\ZMAC\F8W\" -I "D:\zigbee\4.                      #
+#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
+#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
+#                          amples\SampleApp\CC2530DB\..\..\..\..\..\COMPONENT #
+#                          S\ZMAC\" -I "D:\zigbee\4.                          #
+#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
+#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
+#                          amples\SampleApp\CC2530DB\..\..\..\..\..\COMPONENT #
+#                          S\SERVICES\SADDR\" -I "D:\zigbee\4.                #
+#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
+#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
+#                          amples\SampleApp\CC2530DB\..\..\..\..\..\COMPONENT #
+#                          S\SERVICES\SDATA\" -I "D:\zigbee\4.                #
+#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
+#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
+#                          amples\SampleApp\CC2530DB\..\..\..\..\..\COMPONENT #
+#                          S\MAC\INCLUDE\" -I "D:\zigbee\4.                   #
+#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
+#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
+#                          amples\SampleApp\CC2530DB\..\..\..\..\..\COMPONENT #
+#                          S\MAC\HIGH_LEVEL\" -I "D:\zigbee\4.                #
+#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
+#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
+#                          amples\SampleApp\CC2530DB\..\..\..\..\..\COMPONENT #
+#                          S\MAC\LOW_LEVEL\srf04\" -I "D:\zigbee\4.           #
+#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
+#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
+#                          amples\SampleApp\CC2530DB\..\..\..\..\..\COMPONENT #
+#                          S\MAC\LOW_LEVEL\srf04\SINGLE_CHIP\" -Ohs           #
+#                          --require_prototypes                               #
+#    List file          =  D:\zigbee\4. Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð #
+#                          ­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Proj #
+#                          ects\zstack\Samples\SampleApp\CC2530DB\RouterEB-Pr #
+#                          o\List\crc8.lst                                    #
+#    Object file        =  D:\zigbee\4. Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð #
+#                          ­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Proj #
+#                          ects\zstack\Samples\SampleApp\CC2530DB\RouterEB-Pr #
+#                          o\Obj\crc8.r51                                     #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\zigbee\4. Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\Samples\SampleApp\Source\crc8.c
+      1          #include "hal_types.h"
+      2          uint32 Ulu_SDK_Calc_CRC32 (uint8 *data, uint32 datalen);
+      3          uint8 Calc_CRC8(uint8 *PData, uint32 Len);
+
+   \                                 In  segment XDATA_ROM_C, align 1
+      4          const uint32 crc_tab[256]=
+   \                     crc_tab:
+   \   000000   00000000     DD 0
+   \   000004   B71DC104     DD 79764919
+   \   000008   6E3B8209     DD 159529838
+   \   00000C   D926430D     DD 222504665
+   \   000010   DC760413     DD 319059676
+   \   000014   6B6BC517     DD 398814059
+   \   000018   B24D861A     DD 445009330
+   \   00001C   0550471E     DD 507990021
+   \   000020   B8ED0826     DD 638119352
+   \   000024   0FF0C922     DD 583659535
+   \   000028   D6D68A2F     DD 797628118
+   \   00002C   61CB4B2B     DD 726387553
+   \   000030   649B0C35     DD 890018660
+   \   000034   D386CD31     DD 835552979
+   \   000038   0AA08E3C     DD 1015980042
+   \   00003C   BDBD4F38     DD 944750013
+   \   000040   70DB114C     DD 1276238704
+   \   000044   C7C6D048     DD 1221641927
+   \   000048   1EE09345     DD 1167319070
+   \   00004C   A9FD5241     DD 1095957929
+   \   000050   ACAD155F     DD 1595256236
+   \   000054   1BB0D45B     DD 1540665371
+   \   000058   C2969756     DD 1452775106
+   \   00005C   758B5652     DD 1381403509
+   \   000060   C836196A     DD 1780037320
+   \   000064   7F2BD86E     DD 1859660671
+   \   000068   A60D9B63     DD 1671105958
+   \   00006C   11105A67     DD 1733955601
+   \   000070   14401D79     DD 2031960084
+   \   000074   A35DDC7D     DD 2111593891
+   \   000078   7A7B9F70     DD 1889500026
+   \   00007C   CD665E74     DD 1952343757
+   \   000080   E0B62398     DD 2552477408
+   \   000084   57ABE29C     DD 2632100695
+   \   000088   8E8DA191     DD 2443283854
+   \   00008C   39906095     DD 2506133561
+   \   000090   3CC0278B     DD 2334638140
+   \   000094   8BDDE68F     DD 2414271883
+   \   000098   52FBA582     DD 2191915858
+   \   00009C   E5E66486     DD 2254759653
+   \   0000A0   585B2BBE     DD 3190512472
+   \   0000A4   EF46EABA     DD 3135915759
+   \   0000A8   3660A9B7     DD 3081330742
+   \   0000AC   817D68B3     DD 3009969537
+   \   0000B0   842D2FAD     DD 2905550212
+   \   0000B4   3330EEA9     DD 2850959411
+   \   0000B8   EA16ADA4     DD 2762807018
+   \   0000BC   5D0B6CA0     DD 2691435357
+   \   0000C0   906D32D4     DD 3560074640
+   \   0000C4   2770F3D0     DD 3505614887
+   \   0000C8   FE56B0DD     DD 3719321342
+   \   0000CC   494B71D9     DD 3648080713
+   \   0000D0   4C1B36C7     DD 3342211916
+   \   0000D4   FB06F7C3     DD 3287746299
+   \   0000D8   2220B4CE     DD 3467911202
+   \   0000DC   953D75CA     DD 3396681109
+   \   0000E0   28803AF2     DD 4063920168
+   \   0000E4   9F9DFBF6     DD 4143685023
+   \   0000E8   46BBB8FB     DD 4223187782
+   \   0000EC   F1A679FF     DD 4286162673
+   \   0000F0   F4F63EE1     DD 3779000052
+   \   0000F4   43EBFFE5     DD 3858754371
+   \   0000F8   9ACDBCE8     DD 3904687514
+   \   0000FC   2DD07DEC     DD 3967668269
+   \   000100   77708634     DD 881225847
+   \   000104   C06D4730     DD 809987520
+   \   000108   194B043D     DD 1023691545
+   \   00010C   AE56C539     DD 969234094
+   \   000110   AB068227     DD 662832811
+   \   000114   1C1B4323     DD 591600412
+   \   000118   C53D002E     DD 771767749
+   \   00011C   7220C12A     DD 717299826
+   \   000120   CF9D8E12     DD 311336399
+   \   000124   78804F16     DD 374308984
+   \   000128   A1A60C1B     DD 453813921
+   \   00012C   16BBCD1F     DD 533576470
+   \   000130   13EB8A01     DD 25881363
+   \   000134   A4F64B05     DD 88864420
+   \   000138   7DD00808     DD 134795389
+   \   00013C   CACDC90C     DD 214552010
+   \   000140   07AB9778     DD 2023205639
+   \   000144   B0B6567C     DD 2086057648
+   \   000148   69901571     DD 1897238633
+   \   00014C   DE8DD475     DD 1976864222
+   \   000150   DBDD936B     DD 1804852699
+   \   000154   6CC0526F     DD 1867694188
+   \   000158   B5E61162     DD 1645340341
+   \   00015C   02FBD066     DD 1724971778
+   \   000160   BF469F5E     DD 1587496639
+   \   000164   085B5E5A     DD 1516133128
+   \   000168   D17D1D57     DD 1461550545
+   \   00016C   6660DC53     DD 1406951526
+   \   000170   63309B4D     DD 1302016099
+   \   000174   D42D5A49     DD 1230646740
+   \   000178   0D0B1944     DD 1142491917
+   \   00017C   BA16D840     DD 1087903418
+   \   000180   97C6A5AC     DD 2896545431
+   \   000184   20DB64A8     DD 2825181984
+   \   000188   F9FD27A5     DD 2770861561
+   \   00018C   4EE0E6A1     DD 2716262478
+   \   000190   4BB0A1BF     DD 3215044683
+   \   000194   FCAD60BB     DD 3143675388
+   \   000198   258B23B6     DD 3055782693
+   \   00019C   9296E2B2     DD 3001194130
+   \   0001A0   2F2BAD8A     DD 2326604591
+   \   0001A4   98366C8E     DD 2389456536
+   \   0001A8   41102F83     DD 2200899649
+   \   0001AC   F60DEE87     DD 2280525302
+   \   0001B0   F35DA999     DD 2578013683
+   \   0001B4   4440689D     DD 2640855108
+   \   0001B8   9D662B90     DD 2418763421
+   \   0001BC   2A7BEA94     DD 2498394922
+   \   0001C0   E71DB4E0     DD 3769900519
+   \   0001C4   500075E4     DD 3832873040
+   \   0001C8   892636E9     DD 3912640137
+   \   0001CC   3E3BF7ED     DD 3992402750
+   \   0001D0   3B6BB0F3     DD 4088425275
+   \   0001D4   8C7671F7     DD 4151408268
+   \   0001D8   555032FA     DD 4197601365
+   \   0001DC   E24DF3FE     DD 4277358050
+   \   0001E0   5FF0BCC6     DD 3334271071
+   \   0001E4   E8ED7DC2     DD 3263032808
+   \   0001E8   31CB3ECF     DD 3476998961
+   \   0001EC   86D6FFCB     DD 3422541446
+   \   0001F0   8386B8D5     DD 3585640067
+   \   0001F4   349B79D1     DD 3514407732
+   \   0001F8   EDBD3ADC     DD 3694837229
+   \   0001FC   5AA0FBD8     DD 3640369242
+   \   000200   EEE00C69     DD 1762451694
+   \   000204   59FDCD6D     DD 1842216281
+   \   000208   80DB8E60     DD 1619975040
+   \   00020C   37C64F64     DD 1682949687
+   \   000210   3296087A     DD 2047383090
+   \   000214   858BC97E     DD 2127137669
+   \   000218   5CAD8A73     DD 1938468188
+   \   00021C   EBB04B77     DD 2001449195
+   \   000220   560D044F     DD 1325665622
+   \   000224   E110C54B     DD 1271206113
+   \   000228   38368646     DD 1183200824
+   \   00022C   8F2B4742     DD 1111960463
+   \   000230   8A7B005C     DD 1543535498
+   \   000234   3D66C158     DD 1489069629
+   \   000238   E4408255     DD 1434599652
+   \   00023C   535D4351     DD 1363369299
+   \   000240   9E3B1D25     DD 622672798
+   \   000244   2926DC21     DD 568075817
+   \   000248   F0009F2C     DD 748617968
+   \   00024C   471D5E28     DD 677256519
+   \   000250   424D1936     DD 907627842
+   \   000254   F550D832     DD 853037301
+   \   000258   2C769B3F     DD 1067152940
+   \   00025C   9B6B5A3B     DD 995781531
+   \   000260   26D61503     DD 51762726
+   \   000264   91CBD407     DD 131386257
+   \   000268   48ED970A     DD 177728840
+   \   00026C   FFF0560E     DD 240578815
+   \   000270   FAA01110     DD 269590778
+   \   000274   4DBDD014     DD 349224269
+   \   000278   949B9319     DD 429104020
+   \   00027C   2386521D     DD 491947555
+   \   000280   0E562FF1     DD 4046411278
+   \   000284   B94BEEF5     DD 4126034873
+   \   000288   606DADF8     DD 4172115296
+   \   00028C   D7706CFC     DD 4234965207
+   \   000290   D2202BE2     DD 3794477266
+   \   000294   653DEAE6     DD 3874110821
+   \   000298   BC1BA9EB     DD 3953728444
+   \   00029C   0B0668EF     DD 4016571915
+   \   0002A0   B6BB27D7     DD 3609705398
+   \   0002A4   01A6E6D3     DD 3555108353
+   \   0002A8   D880A5DE     DD 3735388376
+   \   0002AC   6F9D64DA     DD 3664026991
+   \   0002B0   6ACD23C4     DD 3290680682
+   \   0002B4   DDD0E2C0     DD 3236090077
+   \   0002B8   04F6A1CD     DD 3449943556
+   \   0002BC   B3EB60C9     DD 3378572211
+   \   0002C0   7E8D3EBD     DD 3174993278
+   \   0002C4   C990FFB9     DD 3120533705
+   \   0002C8   10B6BCB4     DD 3032266256
+   \   0002CC   A7AB7DB0     DD 2961025959
+   \   0002D0   A2FB3AAE     DD 2923101090
+   \   0002D4   15E6FBAA     DD 2868635157
+   \   0002D8   CCC0B8A7     DD 2813903052
+   \   0002DC   7BDD79A3     DD 2742672763
+   \   0002E0   C660369B     DD 2604032198
+   \   0002E4   717DF79F     DD 2683796849
+   \   0002E8   A85BB492     DD 2461293480
+   \   0002EC   1F467596     DD 2524268063
+   \   0002F0   1A163288     DD 2284983834
+   \   0002F4   AD0BF38C     DD 2364738477
+   \   0002F8   742DB081     DD 2175806836
+   \   0002FC   C3307185     DD 2238787779
+   \   000300   99908A5D     DD 1569362073
+   \   000304   2E8D4B59     DD 1498123566
+   \   000308   F7AB0854     DD 1409854455
+   \   00030C   40B6C950     DD 1355396672
+   \   000310   45E68E4E     DD 1317987909
+   \   000314   F2FB4F4A     DD 1246755826
+   \   000318   2BDD0C47     DD 1192025387
+   \   00031C   9CC0CD43     DD 1137557660
+   \   000320   217D827B     DD 2072149281
+   \   000324   9660437F     DD 2135122070
+   \   000328   4F460072     DD 1912620623
+   \   00032C   F85BC176     DD 1992383480
+   \   000330   FD0B8668     DD 1753615357
+   \   000334   4A16476C     DD 1816598090
+   \   000338   93300461     DD 1627664531
+   \   00033C   242DC565     DD 1707420964
+   \   000340   E94B9B11     DD 295390185
+   \   000344   5E565A15     DD 358241886
+   \   000348   87701918     DD 404320391
+   \   00034C   306DD81C     DD 483945776
+   \   000350   353D9F02     DD 43990325
+   \   000354   82205E06     DD 106832002
+   \   000358   5B061D0B     DD 186451547
+   \   00035C   EC1BDC0F     DD 266083308
+   \   000360   51A69337     DD 932423249
+   \   000364   E6BB5233     DD 861060070
+   \   000368   3F9D113E     DD 1041341759
+   \   00036C   8880D03A     DD 986742920
+   \   000370   8DD09724     DD 613929101
+   \   000374   3ACD5620     DD 542559546
+   \   000378   E3EB152D     DD 756411363
+   \   00037C   54F6D429     DD 701822548
+   \   000380   7926A9C5     DD 3316196985
+   \   000384   CE3B68C1     DD 3244833742
+   \   000388   171D2BCC     DD 3425377559
+   \   00038C   A000EAC8     DD 3370778784
+   \   000390   A550ADD6     DD 3601682597
+   \   000394   124D6CD2     DD 3530312978
+   \   000398   CB6B2FDF     DD 3744426955
+   \   00039C   7C76EEDB     DD 3689838204
+   \   0003A0   C1CBA1E3     DD 3819031489
+   \   0003A4   76D660E7     DD 3881883254
+   \   0003A8   AFF023EA     DD 3928223919
+   \   0003AC   18EDE2EE     DD 4007849240
+   \   0003B0   1DBDA5F0     DD 4037393693
+   \   0003B4   AAA064F4     DD 4100235434
+   \   0003B8   738627F9     DD 4180117107
+   \   0003BC   C49BE6FD     DD 4259748804
+   \   0003C0   09FDB889     DD 2310601993
+   \   0003C4   BEE0798D     DD 2373574846
+   \   0003C8   67C63A80     DD 2151335527
+   \   0003CC   D0DBFB84     DD 2231098320
+   \   0003D0   D58BBC9A     DD 2596047829
+   \   0003D4   62967D9E     DD 2659030626
+   \   0003D8   BBB03E93     DD 2470359227
+   \   0003DC   0CADFF97     DD 2550115596
+   \   0003E0   B110B0AF     DD 2947551409
+   \   0003E4   060D71AB     DD 2876312838
+   \   0003E8   DF2B32A6     DD 2788305887
+   \   0003EC   6836F3A2     DD 2733848168
+   \   0003F0   6D66B4BC     DD 3165939309
+   \   0003F4   DA7B75B8     DD 3094707162
+   \   0003F8   035D36B5     DD 3040238851
+   \   0003FC   B440F7B1     DD 2985771188
+      5              {
+      6                  0x00000000, 0x04c11db7, 0x09823b6e, 0x0d4326d9, 0x130476dc, 0x17c56b6b,
+      7                  0x1a864db2, 0x1e475005, 0x2608edb8, 0x22c9f00f, 0x2f8ad6d6, 0x2b4bcb61,
+      8                  0x350c9b64, 0x31cd86d3, 0x3c8ea00a, 0x384fbdbd, 0x4c11db70, 0x48d0c6c7,
+      9                  0x4593e01e, 0x4152fda9, 0x5f15adac, 0x5bd4b01b, 0x569796c2, 0x52568b75,
+     10                  0x6a1936c8, 0x6ed82b7f, 0x639b0da6, 0x675a1011, 0x791d4014, 0x7ddc5da3,
+     11                  0x709f7b7a, 0x745e66cd, 0x9823b6e0, 0x9ce2ab57, 0x91a18d8e, 0x95609039,
+     12                  0x8b27c03c, 0x8fe6dd8b, 0x82a5fb52, 0x8664e6e5, 0xbe2b5b58, 0xbaea46ef,
+     13                  0xb7a96036, 0xb3687d81, 0xad2f2d84, 0xa9ee3033, 0xa4ad16ea, 0xa06c0b5d,
+     14                  0xd4326d90, 0xd0f37027, 0xddb056fe, 0xd9714b49, 0xc7361b4c, 0xc3f706fb,
+     15                  0xceb42022, 0xca753d95, 0xf23a8028, 0xf6fb9d9f, 0xfbb8bb46, 0xff79a6f1,
+     16                  0xe13ef6f4, 0xe5ffeb43, 0xe8bccd9a, 0xec7dd02d, 0x34867077, 0x30476dc0,
+     17                  0x3d044b19, 0x39c556ae, 0x278206ab, 0x23431b1c, 0x2e003dc5, 0x2ac12072,
+     18                  0x128e9dcf, 0x164f8078, 0x1b0ca6a1, 0x1fcdbb16, 0x018aeb13, 0x054bf6a4,
+     19                  0x0808d07d, 0x0cc9cdca, 0x7897ab07, 0x7c56b6b0, 0x71159069, 0x75d48dde,
+     20                  0x6b93dddb, 0x6f52c06c, 0x6211e6b5, 0x66d0fb02, 0x5e9f46bf, 0x5a5e5b08,
+     21                  0x571d7dd1, 0x53dc6066, 0x4d9b3063, 0x495a2dd4, 0x44190b0d, 0x40d816ba,
+     22                  0xaca5c697, 0xa864db20, 0xa527fdf9, 0xa1e6e04e, 0xbfa1b04b, 0xbb60adfc,
+     23                  0xb6238b25, 0xb2e29692, 0x8aad2b2f, 0x8e6c3698, 0x832f1041, 0x87ee0df6,
+     24                  0x99a95df3, 0x9d684044, 0x902b669d, 0x94ea7b2a, 0xe0b41de7, 0xe4750050,
+     25                  0xe9362689, 0xedf73b3e, 0xf3b06b3b, 0xf771768c, 0xfa325055, 0xfef34de2,
+     26                  0xc6bcf05f, 0xc27dede8, 0xcf3ecb31, 0xcbffd686, 0xd5b88683, 0xd1799b34,
+     27                  0xdc3abded, 0xd8fba05a, 0x690ce0ee, 0x6dcdfd59, 0x608edb80, 0x644fc637,
+     28                  0x7a089632, 0x7ec98b85, 0x738aad5c, 0x774bb0eb, 0x4f040d56, 0x4bc510e1,
+     29                  0x46863638, 0x42472b8f, 0x5c007b8a, 0x58c1663d, 0x558240e4, 0x51435d53,
+     30                  0x251d3b9e, 0x21dc2629, 0x2c9f00f0, 0x285e1d47, 0x36194d42, 0x32d850f5,
+     31                  0x3f9b762c, 0x3b5a6b9b, 0x0315d626, 0x07d4cb91, 0x0a97ed48, 0x0e56f0ff,
+     32                  0x1011a0fa, 0x14d0bd4d, 0x19939b94, 0x1d528623, 0xf12f560e, 0xf5ee4bb9,
+     33                  0xf8ad6d60, 0xfc6c70d7, 0xe22b20d2, 0xe6ea3d65, 0xeba91bbc, 0xef68060b,
+     34                  0xd727bbb6, 0xd3e6a601, 0xdea580d8, 0xda649d6f, 0xc423cd6a, 0xc0e2d0dd,
+     35                  0xcda1f604, 0xc960ebb3, 0xbd3e8d7e, 0xb9ff90c9, 0xb4bcb610, 0xb07daba7,
+     36                  0xae3afba2, 0xaafbe615, 0xa7b8c0cc, 0xa379dd7b, 0x9b3660c6, 0x9ff77d71,
+     37                  0x92b45ba8, 0x9675461f, 0x8832161a, 0x8cf30bad, 0x81b02d74, 0x857130c3,
+     38                  0x5d8a9099, 0x594b8d2e, 0x5408abf7, 0x50c9b640, 0x4e8ee645, 0x4a4ffbf2,
+     39                  0x470cdd2b, 0x43cdc09c, 0x7b827d21, 0x7f436096, 0x7200464f, 0x76c15bf8,
+     40                  0x68860bfd, 0x6c47164a, 0x61043093, 0x65c52d24, 0x119b4be9, 0x155a565e,
+     41                  0x18197087, 0x1cd86d30, 0x029f3d35, 0x065e2082, 0x0b1d065b, 0x0fdc1bec,
+     42                  0x3793a651, 0x3352bbe6, 0x3e119d3f, 0x3ad08088, 0x2497d08d, 0x2056cd3a,
+     43                  0x2d15ebe3, 0x29d4f654, 0xc5a92679, 0xc1683bce, 0xcc2b1d17, 0xc8ea00a0,
+     44                  0xd6ad50a5, 0xd26c4d12, 0xdf2f6bcb, 0xdbee767c, 0xe3a1cbc1, 0xe760d676,
+     45                  0xea23f0af, 0xeee2ed18, 0xf0a5bd1d, 0xf464a0aa, 0xf9278673, 0xfde69bc4,
+     46                  0x89b8fd09, 0x8d79e0be, 0x803ac667, 0x84fbdbd0, 0x9abc8bd5, 0x9e7d9662,
+     47                  0x933eb0bb, 0x97ffad0c, 0xafb010b1, 0xab710d06, 0xa6322bdf, 0xa2f33668,
+     48                  0xbcb4666d, 0xb8757bda, 0xb5365d03, 0xb1f740b4
+     49              };
+     50          
+     51          /*****************************************************************************
+     52           º¯ Êý Ãû  : calc_crc32
+     53           ¹¦ÄÜÃèÊö  : crc32Ð£Ñéº¯Êý
+     54           ÊäÈë²ÎÊý  : uint8 *data     
+     55                       uint32 datalen  
+     56           Êä³ö²ÎÊý  : ÎÞ
+     57           ·µ »Ø Öµ  : 
+     58           µ÷ÓÃº¯Êý  : 
+     59           ±»µ÷º¯Êý  : 
+     60           ÐÞ¸ÄÀúÊ·      :
+     61            1.ÈÕ    ÆÚ   : 2014Äê8ÔÂ28ÈÕ
+     62              ×÷    Õß   : ±Ï³¿¹â
+     63              ÐÞ¸ÄÄÚÈÝ   : ÐÂÉú³Éº¯Êý
+     64           
+     65          *****************************************************************************/
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     66          uint32 Ulu_SDK_Calc_CRC32 (uint8 *data, uint32 datalen)
+   \                     Ulu_SDK_Calc_CRC32:
+     67          {
+   \   000000   74EC         MOV     A,#-0x14
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 20
+   \   000005                ; Auto size: 0
+   \   000005   7414         MOV     A,#0x14
+   \   000007   12....       LCALL   ?XSTACK_DISP0_8
+   \   00000A   78..         MOV     R0,#?V0 + 0
+   \   00000C   12....       LCALL   ?L_MOV_X
+     68              uint32 i;
+     69              uint32 crc = 0xffffffff;
+   \   00000F   90....       MOV     DPTR,#__Constant_ffffffff
+   \   000012   78..         MOV     R0,#?V0 + 4
+   \   000014   12....       LCALL   ?L_MOV_X
+     70          
+     71              for (i=0; i<datalen; i++)
+   \   000017   E5..         MOV     A,?V0 + 0
+   \   000019   45..         ORL     A,?V0 + 1
+   \   00001B   45..         ORL     A,?V0 + 2
+   \   00001D   45..         ORL     A,?V0 + 3
+   \   00001F   6070         JZ      ??Ulu_SDK_Calc_CRC32_0
+   \   000021   85....       MOV     ?V0 + 8,?V0 + 0
+   \   000024   85....       MOV     ?V0 + 9,?V0 + 1
+   \   000027   85....       MOV     ?V0 + 10,?V0 + 2
+   \   00002A   85....       MOV     ?V0 + 11,?V0 + 3
+     72              {
+     73                  crc = (crc << 8) ^ crc_tab[((crc >> 24) ^ *data++) & 0xff];
+   \                     ??Ulu_SDK_Calc_CRC32_1:
+   \   00002D   85....       MOV     ?V0 + 0,?V0 + 4
+   \   000030   85....       MOV     ?V0 + 1,?V0 + 5
+   \   000033   85....       MOV     ?V0 + 2,?V0 + 6
+   \   000036   85....       MOV     ?V0 + 3,?V0 + 7
+   \   000039   7408         MOV     A,#0x8
+   \   00003B   78..         MOV     R0,#?V0 + 0
+   \   00003D   12....       LCALL   ?L_SHL
+   \   000040   7418         MOV     A,#0x18
+   \   000042   78..         MOV     R0,#?V0 + 4
+   \   000044   12....       LCALL   ?UL_SHR
+   \   000047   8A82         MOV     DPL,R2
+   \   000049   8B83         MOV     DPH,R3
+   \   00004B   E0           MOVX    A,@DPTR
+   \   00004C   F8           MOV     R0,A
+   \   00004D   E5..         MOV     A,?V0 + 4
+   \   00004F   68           XRL     A,R0
+   \   000050   F5..         MOV     ?V0 + 4,A
+   \   000052   7402         MOV     A,#0x2
+   \   000054   78..         MOV     R0,#?V0 + 4
+   \   000056   12....       LCALL   ?S_SHL
+   \   000059   74..         MOV     A,#crc_tab & 0xff
+   \   00005B   25..         ADD     A,?V0 + 4
+   \   00005D   F582         MOV     DPL,A
+   \   00005F   74..         MOV     A,#(crc_tab >> 8) & 0xff
+   \   000061   35..         ADDC    A,?V0 + 5
+   \   000063   F583         MOV     DPH,A
+   \   000065   78..         MOV     R0,#?V0 + 0
+   \   000067   12....       LCALL   ?L_XOR_X
+   \   00006A   85....       MOV     ?V0 + 4,?V0 + 0
+   \   00006D   85....       MOV     ?V0 + 5,?V0 + 1
+   \   000070   85....       MOV     ?V0 + 6,?V0 + 2
+   \   000073   85....       MOV     ?V0 + 7,?V0 + 3
+   \   000076   8A82         MOV     DPL,R2
+   \   000078   8B83         MOV     DPH,R3
+   \   00007A   A3           INC     DPTR
+   \   00007B   AA82         MOV     R2,DPL
+   \   00007D   AB83         MOV     R3,DPH
+     74              }
+   \   00007F   90....       MOV     DPTR,#__Constant_ffffffff
+   \   000082   78..         MOV     R0,#?V0 + 8
+   \   000084   12....       LCALL   ?L_ADD_X
+   \   000087   E5..         MOV     A,?V0 + 8
+   \   000089   45..         ORL     A,?V0 + 9
+   \   00008B   45..         ORL     A,?V0 + 10
+   \   00008D   45..         ORL     A,?V0 + 11
+   \   00008F   709C         JNZ     ??Ulu_SDK_Calc_CRC32_1
+     75              return crc;
+   \                     ??Ulu_SDK_Calc_CRC32_0:
+   \   000091   AA..         MOV     R2,?V0 + 4
+   \   000093   AB..         MOV     R3,?V0 + 5
+   \   000095   AC..         MOV     R4,?V0 + 6
+   \   000097   AD..         MOV     R5,?V0 + 7
+   \   000099   7F0C         MOV     R7,#0xc
+   \   00009B   02....       LJMP    ?BANKED_LEAVE_XDATA
+     76          }
+     77          /*****************************************************************************
+     78           º¯ Êý Ãû  : calc_crc8
+     79           ¹¦ÄÜÃèÊö  : crc8Ð£Ñéº¯Êý
+     80           ÊäÈë²ÎÊý  : uint8 *PData     
+     81                       uint32 Len  
+     82           Êä³ö²ÎÊý  : ÎÞ
+     83           ·µ »Ø Öµ  : 
+     84           µ÷ÓÃº¯Êý  : 
+     85           ±»µ÷º¯Êý  : 
+     86           ÐÞ¸ÄÀúÊ·      :
+     87            1.ÈÕ    ÆÚ   : 2014Äê10ÔÂ31ÈÕ
+     88              ×÷    Õß   : ±Ï³¿¹â
+     89              ÐÞ¸ÄÄÚÈÝ   : ÐÂÉú³Éº¯Êý
+     90           
+     91          *****************************************************************************/
+     92          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     93          uint8 Calc_CRC8(uint8 *PData, uint32 Len)
+   \                     Calc_CRC8:
+     94          {
+   \   000000   74F0         MOV     A,#-0x10
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 16
+   \   000005                ; Auto size: 8
+   \   000005   74F8         MOV     A,#-0x8
+   \   000007   12....       LCALL   ?ALLOC_XSTACK8
+   \   00000A   7418         MOV     A,#0x18
+   \   00000C   12....       LCALL   ?XSTACK_DISP0_8
+   \   00000F   78..         MOV     R0,#?V0 + 4
+   \   000011   12....       LCALL   ?L_MOV_X
+     95          	unsigned char Crc;
+     96          	unsigned char ch[8], ch1;
+     97          	unsigned char i, j, k;
+     98          
+     99          	Crc = 0xff;
+   \   000014   7CFF         MOV     R4,#-0x1
+    100          	for (i=0;i<Len;i++)
+   \   000016   E5..         MOV     A,?V0 + 4
+   \   000018   45..         ORL     A,?V0 + 5
+   \   00001A   45..         ORL     A,?V0 + 6
+   \   00001C   45..         ORL     A,?V0 + 7
+   \   00001E   7003         JNZ     $+5
+   \   000020   02....       LJMP    ??Calc_CRC8_0 & 0xFFFF
+   \   000023   85....       MOV     ?V0 + 0,?V0 + 4
+   \   000026   85....       MOV     ?V0 + 1,?V0 + 5
+   \   000029   85....       MOV     ?V0 + 2,?V0 + 6
+   \   00002C   85....       MOV     ?V0 + 3,?V0 + 7
+    101          	{
+    102          		ch1 = PData[i];
+   \                     ??Calc_CRC8_1:
+   \   00002F   8A82         MOV     DPL,R2
+   \   000031   8B83         MOV     DPH,R3
+   \   000033   E0           MOVX    A,@DPTR
+   \   000034   FD           MOV     R5,A
+    103          		for (j=0;j<8;j++)
+   \   000035   85..82       MOV     DPL,?XSP + 0
+   \   000038   85..83       MOV     DPH,?XSP + 1
+   \   00003B   A882         MOV     R0,DPL
+   \   00003D   A983         MOV     R1,DPH
+    104          		{
+    105          			ch[j] = ch1 & 0x01;
+   \                     ??Calc_CRC8_2:
+   \   00003F   ED           MOV     A,R5
+   \   000040   A2E0         MOV     C,0xE0 /* A   */.0
+   \   000042   E4           CLR     A
+   \   000043   33           RLC     A
+   \   000044   8882         MOV     DPL,R0
+   \   000046   8983         MOV     DPH,R1
+   \   000048   F0           MOVX    @DPTR,A
+    106          			ch1 >>= 1;
+   \   000049   ED           MOV     A,R5
+   \   00004A   13           RRC     A
+   \   00004B   FD           MOV     R5,A
+    107          		}
+   \   00004C   A3           INC     DPTR
+   \   00004D   A882         MOV     R0,DPL
+   \   00004F   A983         MOV     R1,DPH
+   \   000051   7408         MOV     A,#0x8
+   \   000053   12....       LCALL   ?XSTACK_DISP0_8
+   \   000056   E582         MOV     A,DPL
+   \   000058   68           XRL     A,R0
+   \   000059   7003         JNZ     ??Calc_CRC8_3
+   \   00005B   E583         MOV     A,DPH
+   \   00005D   69           XRL     A,R1
+   \                     ??Calc_CRC8_3:
+   \   00005E   70DF         JNZ     ??Calc_CRC8_2
+    108          		for (k=0;k<8;k++)
+   \   000060   7D00         MOV     R5,#0x0
+    109          		{
+    110          			ch[7-k] <<=7;
+   \                     ??Calc_CRC8_4:
+   \   000062   ED           MOV     A,R5
+   \   000063   F8           MOV     R0,A
+   \   000064   C3           CLR     C
+   \   000065   E4           CLR     A
+   \   000066   98           SUBB    A,R0
+   \   000067   F8           MOV     R0,A
+   \   000068   95E0         SUBB    A,0xE0 /* A   */
+   \   00006A   F9           MOV     R1,A
+   \   00006B   85..82       MOV     DPL,?XSP + 0
+   \   00006E   85..83       MOV     DPH,?XSP + 1
+   \   000071   E582         MOV     A,DPL
+   \   000073   28           ADD     A,R0
+   \   000074   F8           MOV     R0,A
+   \   000075   E583         MOV     A,DPH
+   \   000077   39           ADDC    A,R1
+   \   000078   F9           MOV     R1,A
+   \   000079   E8           MOV     A,R0
+   \   00007A   2407         ADD     A,#0x7
+   \   00007C   F582         MOV     DPL,A
+   \   00007E   E9           MOV     A,R1
+   \   00007F   3400         ADDC    A,#0x0
+   \   000081   F583         MOV     DPH,A
+   \   000083   E0           MOVX    A,@DPTR
+   \   000084   A2E0         MOV     C,0xE0 /* A   */.0
+   \   000086   E4           CLR     A
+   \   000087   33           RLC     A
+   \   000088   13           RRC     A
+   \   000089   13           RRC     A
+   \   00008A   F8           MOV     R0,A
+   \   00008B   F0           MOVX    @DPTR,A
+    111          			if ((Crc ^ ch[7-k]) & 0x80)
+   \   00008C   EC           MOV     A,R4
+   \   00008D   33           RLC     A
+   \   00008E   F9           MOV     R1,A
+   \   00008F   EC           MOV     A,R4
+   \   000090   68           XRL     A,R0
+   \   000091   5480         ANL     A,#0x80
+   \   000093   6005         JZ      ??Calc_CRC8_5
+    112          				Crc = (Crc << 1)^0x1d ;
+   \   000095   741D         MOV     A,#0x1d
+   \   000097   69           XRL     A,R1
+   \   000098   8001         SJMP    ??Calc_CRC8_6
+    113          			else
+    114          				Crc <<= 1;
+   \                     ??Calc_CRC8_5:
+   \   00009A   E9           MOV     A,R1
+   \                     ??Calc_CRC8_6:
+   \   00009B   FC           MOV     R4,A
+    115          		}
+   \   00009C   0D           INC     R5
+   \   00009D   ED           MOV     A,R5
+   \   00009E   C3           CLR     C
+   \   00009F   9408         SUBB    A,#0x8
+   \   0000A1   40BF         JC      ??Calc_CRC8_4
+    116          	}
+   \   0000A3   8A82         MOV     DPL,R2
+   \   0000A5   8B83         MOV     DPH,R3
+   \   0000A7   A3           INC     DPTR
+   \   0000A8   AA82         MOV     R2,DPL
+   \   0000AA   AB83         MOV     R3,DPH
+   \   0000AC   90....       MOV     DPTR,#__Constant_ffffffff
+   \   0000AF   78..         MOV     R0,#?V0 + 0
+   \   0000B1   12....       LCALL   ?L_ADD_X
+   \   0000B4   E5..         MOV     A,?V0 + 0
+   \   0000B6   45..         ORL     A,?V0 + 1
+   \   0000B8   45..         ORL     A,?V0 + 2
+   \   0000BA   45..         ORL     A,?V0 + 3
+   \   0000BC   6003         JZ      $+5
+   \   0000BE   02....       LJMP    ??Calc_CRC8_1 & 0xFFFF
+    117          	Crc ^= 0xff;
+    118          	return  Crc;
+   \                     ??Calc_CRC8_0:
+   \   0000C1   74FF         MOV     A,#-0x1
+   \   0000C3   6C           XRL     A,R4
+   \   0000C4   F9           MOV     R1,A
+   \   0000C5   7408         MOV     A,#0x8
+   \   0000C7   12....       LCALL   ?DEALLOC_XSTACK8
+   \   0000CA   7F08         MOV     R7,#0x8
+   \   0000CC   02....       LJMP    ?BANKED_LEAVE_XDATA
+    119          }
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     __Constant_ffffffff:
+   \   000000   FFFFFFFF     DD 4294967295
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??Ulu_SDK_Calc_CRC32?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    Ulu_SDK_Calc_CRC32
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     ??Calc_CRC8?relay:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    Calc_CRC8
+    120          
+
+   Maximum stack usage in bytes:
+
+     Function           ISTACK PSTACK XSTACK
+     --------           ------ ------ ------
+     Calc_CRC8              1      0     28
+     Ulu_SDK_Calc_CRC32     0      0     24
+
+
+   Segment part sizes:
+
+     Function/Label             Bytes
+     --------------             -----
+     crc_tab                    1024
+     Ulu_SDK_Calc_CRC32          158
+     Calc_CRC8                   207
+     __Constant_ffffffff           4
+     ??Ulu_SDK_Calc_CRC32?relay    6
+     ??Calc_CRC8?relay             6
+
+ 
+   365 bytes in segment BANKED_CODE
+    12 bytes in segment BANK_RELAYS
+ 1 028 bytes in segment XDATA_ROM_C
+ 
+   377 bytes of CODE  memory
+ 1 024 bytes of CONST memory (+ 4 bytes shared)
+
+Errors: none
+Warnings: none
