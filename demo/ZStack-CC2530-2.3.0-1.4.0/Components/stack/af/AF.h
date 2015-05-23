@@ -239,7 +239,7 @@ typedef struct
     ZLongAddr_t extAddr;
   } addr;
   afAddrMode_t addrMode;
-  byte endPoint;
+  byte endPoint;//port
   uint16 panId;  // used for the INTER_PAN feature
 } afAddrType_t;
 

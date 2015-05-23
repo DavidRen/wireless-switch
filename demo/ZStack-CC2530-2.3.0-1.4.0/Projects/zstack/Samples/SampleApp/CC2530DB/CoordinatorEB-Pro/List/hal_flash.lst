@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR C/C++ Compiler V8.10.3.10338/W32 for 8051         20/May/2015  11:05:59 #
+# IAR C/C++ Compiler V8.10.3.10338/W32 for 8051         23/May/2015  15:28:18 #
 # Copyright 2004-2011 IAR Systems AB.                                         #
 #                                                                             #
 #    Core               =  plain                                              #
@@ -9,19 +9,16 @@
 #    Calling convention =  xdata reentrant                                    #
 #    Constant location  =  data_rom                                           #
 #    Dptr setup         =  1,16                                               #
-#    Source file        =  D:\zigbee\4. Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð #
-#                          ­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Comp #
-#                          onents\hal\target\CC2530EB\hal_flash.c             #
-#    Command line       =  -f "D:\zigbee\4. Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé #
-#                          \2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\ #
-#                          Projects\zstack\Samples\SampleApp\CC2530DB\..\..\. #
-#                          .\Tools\CC2530DB\f8wCoord.cfg" (-DCPU32MHZ         #
+#    Source file        =  E:\wireless-switch\demo\ZStack-CC2530-2.3.0-1.4.0\ #
+#                          Components\hal\target\CC2530EB\hal_flash.c         #
+#    Command line       =  -f E:\wireless-switch\demo\ZStack-CC2530-2.3.0-1.4 #
+#                          .0\Projects\zstack\Samples\SampleApp\CC2530DB\..\. #
+#                          .\..\Tools\CC2530DB\f8wCoord.cfg (-DCPU32MHZ       #
 #                          -DROOT=__near_func -DMAC_CFG_APP_PENDING_QUEUE=TRU #
 #                          E -DZDO_COORDINATOR -DRTR_NWK -DBLINK_LEDS) -f     #
-#                          "D:\zigbee\4. Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2. #
-#                          Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Pro #
-#                          jects\zstack\Samples\SampleApp\CC2530DB\..\..\..\T #
-#                          ools\CC2530DB\f8wConfig.cfg" (-DSECURE=0           #
+#                          E:\wireless-switch\demo\ZStack-CC2530-2.3.0-1.4.0\ #
+#                          Projects\zstack\Samples\SampleApp\CC2530DB\..\..\. #
+#                          .\Tools\CC2530DB\f8wConfig.cfg (-DSECURE=0         #
 #                          -DZG_SECURE_DYNAMIC=0 -DREFLECTOR                  #
 #                          -DDEFAULT_CHANLIST=0x00000800                      #
 #                          -DZDAPP_CONFIG_PAN_ID=0xFFF1                       #
@@ -42,126 +39,99 @@
 #                          -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=FALSE     #
 #                          -DPOLL_RATE=1000 -DQUEUED_POLL_RATE=100            #
 #                          -DRESPONSE_POLL_RATE=100) -DREJOIN_POLL_RATE=440   #
-#                          "D:\zigbee\4. Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2. #
-#                          Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Com #
-#                          ponents\hal\target\CC2530EB\hal_flash.c" -D        #
+#                          E:\wireless-switch\demo\ZStack-CC2530-2.3.0-1.4.0\ #
+#                          Components\hal\target\CC2530EB\hal_flash.c -D      #
 #                          ZIGBEEPRO -D ZTOOL_P1 -D xMT_TASK -D xMT_SYS_FUNC  #
-#                          -D xMT_ZDO_FUNC -D LCD_SUPPORTED=DEBUG -lC         #
-#                          "D:\zigbee\4. Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2. #
-#                          Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Pro #
-#                          jects\zstack\Samples\SampleApp\CC2530DB\Coordinato #
-#                          rEB-Pro\List\" -lA "D:\zigbee\4.                   #
-#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
-#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
-#                          amples\SampleApp\CC2530DB\CoordinatorEB-Pro\List\" #
-#                           --diag_suppress Pe001,Pa010 -o "D:\zigbee\4.      #
-#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
-#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
-#                          amples\SampleApp\CC2530DB\CoordinatorEB-Pro\Obj\"  #
-#                          -e --no_unroll --no_inline --no_tbaa --debug       #
-#                          --core=plain --dptr=16,1 --data_model=large        #
-#                          --code_model=banked --calling_convention=xdata_ree #
-#                          ntrant --place_constants=data_rom                  #
-#                          --nr_virtual_regs 16 -I "D:\zigbee\4.              #
-#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
-#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
-#                          amples\SampleApp\CC2530DB\" -I "D:\zigbee\4.       #
-#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
-#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
-#                          amples\SampleApp\CC2530DB\..\SOURCE\" -I           #
-#                          "D:\zigbee\4. Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2. #
-#                          Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Pro #
-#                          jects\zstack\Samples\SampleApp\CC2530DB\..\..\..\Z #
-#                          MAIN\TI2530DB\" -I "D:\zigbee\4.                   #
-#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
-#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
-#                          amples\SampleApp\CC2530DB\..\..\..\..\..\COMPONENT #
-#                          S\MT\" -I "D:\zigbee\4. Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú» #
-#                          ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\ZStack-CC2530-2.3.0 #
+#                          -D xMT_ZDO_FUNC -D LCD_SUPPORTED=DEBUG -D          #
+#                          COORDINATOR_ME -lC E:\wireless-switch\demo\ZStack- #
+#                          CC2530-2.3.0-1.4.0\Projects\zstack\Samples\SampleA #
+#                          pp\CC2530DB\CoordinatorEB-Pro\List\ -lA            #
+#                          E:\wireless-switch\demo\ZStack-CC2530-2.3.0-1.4.0\ #
+#                          Projects\zstack\Samples\SampleApp\CC2530DB\Coordin #
+#                          atorEB-Pro\List\ --diag_suppress Pe001,Pa010 -o    #
+#                          E:\wireless-switch\demo\ZStack-CC2530-2.3.0-1.4.0\ #
+#                          Projects\zstack\Samples\SampleApp\CC2530DB\Coordin #
+#                          atorEB-Pro\Obj\ -e --no_unroll --no_inline         #
+#                          --no_tbaa --debug --core=plain --dptr=16,1         #
+#                          --data_model=large --code_model=banked             #
+#                          --calling_convention=xdata_reentrant               #
+#                          --place_constants=data_rom --nr_virtual_regs 16    #
+#                          -I E:\wireless-switch\demo\ZStack-CC2530-2.3.0-1.4 #
+#                          .0\Projects\zstack\Samples\SampleApp\CC2530DB\ -I  #
+#                          E:\wireless-switch\demo\ZStack-CC2530-2.3.0-1.4.0\ #
+#                          Projects\zstack\Samples\SampleApp\CC2530DB\..\SOUR #
+#                          CE\ -I E:\wireless-switch\demo\ZStack-CC2530-2.3.0 #
 #                          -1.4.0\Projects\zstack\Samples\SampleApp\CC2530DB\ #
-#                          ..\..\..\..\..\COMPONENTS\HAL\INCLUDE\" -I         #
-#                          "D:\zigbee\4. Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2. #
-#                          Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Pro #
-#                          jects\zstack\Samples\SampleApp\CC2530DB\..\..\..\. #
-#                          .\..\COMPONENTS\HAL\TARGET\CC2530EB\" -I           #
-#                          "D:\zigbee\4. Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2. #
-#                          Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Pro #
-#                          jects\zstack\Samples\SampleApp\CC2530DB\..\..\..\. #
-#                          .\..\COMPONENTS\OSAL\MCU\CCSOC\" -I "D:\zigbee\4.  #
-#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
-#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
-#                          amples\SampleApp\CC2530DB\..\..\..\..\..\COMPONENT #
-#                          S\OSAL\INCLUDE\" -I "D:\zigbee\4.                  #
-#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
-#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
-#                          amples\SampleApp\CC2530DB\..\..\..\..\..\COMPONENT #
-#                          S\STACK\AF\" -I "D:\zigbee\4.                      #
-#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
-#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
-#                          amples\SampleApp\CC2530DB\..\..\..\..\..\COMPONENT #
-#                          S\STACK\NWK\" -I "D:\zigbee\4.                     #
-#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
-#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
-#                          amples\SampleApp\CC2530DB\..\..\..\..\..\COMPONENT #
-#                          S\STACK\SEC\" -I "D:\zigbee\4.                     #
-#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
-#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
-#                          amples\SampleApp\CC2530DB\..\..\..\..\..\COMPONENT #
-#                          S\STACK\SAPI\" -I "D:\zigbee\4.                    #
-#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
-#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
-#                          amples\SampleApp\CC2530DB\..\..\..\..\..\COMPONENT #
-#                          S\STACK\SYS\" -I "D:\zigbee\4.                     #
-#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
-#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
-#                          amples\SampleApp\CC2530DB\..\..\..\..\..\COMPONENT #
-#                          S\STACK\ZDO\" -I "D:\zigbee\4.                     #
-#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
-#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
-#                          amples\SampleApp\CC2530DB\..\..\..\..\..\COMPONENT #
-#                          S\ZMAC\F8W\" -I "D:\zigbee\4.                      #
-#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
-#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
-#                          amples\SampleApp\CC2530DB\..\..\..\..\..\COMPONENT #
-#                          S\ZMAC\" -I "D:\zigbee\4.                          #
-#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
-#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
-#                          amples\SampleApp\CC2530DB\..\..\..\..\..\COMPONENT #
-#                          S\SERVICES\SADDR\" -I "D:\zigbee\4.                #
-#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
-#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
-#                          amples\SampleApp\CC2530DB\..\..\..\..\..\COMPONENT #
-#                          S\SERVICES\SDATA\" -I "D:\zigbee\4.                #
-#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
-#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
-#                          amples\SampleApp\CC2530DB\..\..\..\..\..\COMPONENT #
-#                          S\MAC\INCLUDE\" -I "D:\zigbee\4.                   #
-#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
-#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
-#                          amples\SampleApp\CC2530DB\..\..\..\..\..\COMPONENT #
-#                          S\MAC\HIGH_LEVEL\" -I "D:\zigbee\4.                #
-#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
-#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
-#                          amples\SampleApp\CC2530DB\..\..\..\..\..\COMPONENT #
-#                          S\MAC\LOW_LEVEL\srf04\" -I "D:\zigbee\4.           #
-#                          Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù #
-#                          ´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Projects\zstack\S #
-#                          amples\SampleApp\CC2530DB\..\..\..\..\..\COMPONENT #
-#                          S\MAC\LOW_LEVEL\srf04\SINGLE_CHIP\" -Om            #
-#                          --require_prototypes                               #
-#    List file          =  D:\zigbee\4. Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð #
-#                          ­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Proj #
-#                          ects\zstack\Samples\SampleApp\CC2530DB\Coordinator #
-#                          EB-Pro\List\hal_flash.lst                          #
-#    Object file        =  D:\zigbee\4. Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð #
-#                          ­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Proj #
-#                          ects\zstack\Samples\SampleApp\CC2530DB\Coordinator #
-#                          EB-Pro\Obj\hal_flash.r51                           #
+#                          ..\..\..\ZMAIN\TI2530DB\ -I                        #
+#                          E:\wireless-switch\demo\ZStack-CC2530-2.3.0-1.4.0\ #
+#                          Projects\zstack\Samples\SampleApp\CC2530DB\..\..\. #
+#                          .\..\..\COMPONENTS\MT\ -I                          #
+#                          E:\wireless-switch\demo\ZStack-CC2530-2.3.0-1.4.0\ #
+#                          Projects\zstack\Samples\SampleApp\CC2530DB\..\..\. #
+#                          .\..\..\COMPONENTS\HAL\INCLUDE\ -I                 #
+#                          E:\wireless-switch\demo\ZStack-CC2530-2.3.0-1.4.0\ #
+#                          Projects\zstack\Samples\SampleApp\CC2530DB\..\..\. #
+#                          .\..\..\COMPONENTS\HAL\TARGET\CC2530EB\ -I         #
+#                          E:\wireless-switch\demo\ZStack-CC2530-2.3.0-1.4.0\ #
+#                          Projects\zstack\Samples\SampleApp\CC2530DB\..\..\. #
+#                          .\..\..\COMPONENTS\OSAL\MCU\CCSOC\ -I              #
+#                          E:\wireless-switch\demo\ZStack-CC2530-2.3.0-1.4.0\ #
+#                          Projects\zstack\Samples\SampleApp\CC2530DB\..\..\. #
+#                          .\..\..\COMPONENTS\OSAL\INCLUDE\ -I                #
+#                          E:\wireless-switch\demo\ZStack-CC2530-2.3.0-1.4.0\ #
+#                          Projects\zstack\Samples\SampleApp\CC2530DB\..\..\. #
+#                          .\..\..\COMPONENTS\STACK\AF\ -I                    #
+#                          E:\wireless-switch\demo\ZStack-CC2530-2.3.0-1.4.0\ #
+#                          Projects\zstack\Samples\SampleApp\CC2530DB\..\..\. #
+#                          .\..\..\COMPONENTS\STACK\NWK\ -I                   #
+#                          E:\wireless-switch\demo\ZStack-CC2530-2.3.0-1.4.0\ #
+#                          Projects\zstack\Samples\SampleApp\CC2530DB\..\..\. #
+#                          .\..\..\COMPONENTS\STACK\SEC\ -I                   #
+#                          E:\wireless-switch\demo\ZStack-CC2530-2.3.0-1.4.0\ #
+#                          Projects\zstack\Samples\SampleApp\CC2530DB\..\..\. #
+#                          .\..\..\COMPONENTS\STACK\SAPI\ -I                  #
+#                          E:\wireless-switch\demo\ZStack-CC2530-2.3.0-1.4.0\ #
+#                          Projects\zstack\Samples\SampleApp\CC2530DB\..\..\. #
+#                          .\..\..\COMPONENTS\STACK\SYS\ -I                   #
+#                          E:\wireless-switch\demo\ZStack-CC2530-2.3.0-1.4.0\ #
+#                          Projects\zstack\Samples\SampleApp\CC2530DB\..\..\. #
+#                          .\..\..\COMPONENTS\STACK\ZDO\ -I                   #
+#                          E:\wireless-switch\demo\ZStack-CC2530-2.3.0-1.4.0\ #
+#                          Projects\zstack\Samples\SampleApp\CC2530DB\..\..\. #
+#                          .\..\..\COMPONENTS\ZMAC\F8W\ -I                    #
+#                          E:\wireless-switch\demo\ZStack-CC2530-2.3.0-1.4.0\ #
+#                          Projects\zstack\Samples\SampleApp\CC2530DB\..\..\. #
+#                          .\..\..\COMPONENTS\ZMAC\ -I                        #
+#                          E:\wireless-switch\demo\ZStack-CC2530-2.3.0-1.4.0\ #
+#                          Projects\zstack\Samples\SampleApp\CC2530DB\..\..\. #
+#                          .\..\..\COMPONENTS\SERVICES\SADDR\ -I              #
+#                          E:\wireless-switch\demo\ZStack-CC2530-2.3.0-1.4.0\ #
+#                          Projects\zstack\Samples\SampleApp\CC2530DB\..\..\. #
+#                          .\..\..\COMPONENTS\SERVICES\SDATA\ -I              #
+#                          E:\wireless-switch\demo\ZStack-CC2530-2.3.0-1.4.0\ #
+#                          Projects\zstack\Samples\SampleApp\CC2530DB\..\..\. #
+#                          .\..\..\COMPONENTS\MAC\INCLUDE\ -I                 #
+#                          E:\wireless-switch\demo\ZStack-CC2530-2.3.0-1.4.0\ #
+#                          Projects\zstack\Samples\SampleApp\CC2530DB\..\..\. #
+#                          .\..\..\COMPONENTS\MAC\HIGH_LEVEL\ -I              #
+#                          E:\wireless-switch\demo\ZStack-CC2530-2.3.0-1.4.0\ #
+#                          Projects\zstack\Samples\SampleApp\CC2530DB\..\..\. #
+#                          .\..\..\COMPONENTS\MAC\LOW_LEVEL\srf04\ -I         #
+#                          E:\wireless-switch\demo\ZStack-CC2530-2.3.0-1.4.0\ #
+#                          Projects\zstack\Samples\SampleApp\CC2530DB\..\..\. #
+#                          .\..\..\COMPONENTS\MAC\LOW_LEVEL\srf04\SINGLE_CHIP #
+#                          \ -Om --require_prototypes                         #
+#    List file          =  E:\wireless-switch\demo\ZStack-CC2530-2.3.0-1.4.0\ #
+#                          Projects\zstack\Samples\SampleApp\CC2530DB\Coordin #
+#                          atorEB-Pro\List\hal_flash.lst                      #
+#    Object file        =  E:\wireless-switch\demo\ZStack-CC2530-2.3.0-1.4.0\ #
+#                          Projects\zstack\Samples\SampleApp\CC2530DB\Coordin #
+#                          atorEB-Pro\Obj\hal_flash.r51                       #
 #                                                                             #
 #                                                                             #
 ###############################################################################
 
-D:\zigbee\4. Ó¦ÓÃÓë×éÍø\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\2.Ð­ÒéÕ»ÖÐ´®¿Ú»ù´¡ÊµÑé\ZStack-CC2530-2.3.0-1.4.0\Components\hal\target\CC2530EB\hal_flash.c
+E:\wireless-switch\demo\ZStack-CC2530-2.3.0-1.4.0\Components\hal\target\CC2530EB\hal_flash.c
       1          /**************************************************************************************************
       2            Filename:       _hal_flash.c
       3            Revised:        $Date:$

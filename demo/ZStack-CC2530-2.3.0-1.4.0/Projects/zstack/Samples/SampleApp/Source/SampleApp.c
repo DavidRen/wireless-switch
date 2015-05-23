@@ -143,6 +143,7 @@ uint8 SampleApp_TransID;  // This is the unique message ID (counter)
 
 afAddrType_t SampleApp_Periodic_DstAddr;
 afAddrType_t SampleApp_Flash_DstAddr;
+afAddrType_t SampleApp_P2P_DstAddr;
 
 aps_Group_t SampleApp_Group;
 
@@ -156,10 +157,12 @@ void SampleApp_HandleKeys( uint8 shift, uint8 keys );
 void SampleApp_MessageMSGCB( afIncomingMSGPacket_t *pckt );
 void SampleApp_SendPeriodicMessage( void );
 void SampleApp_SendFlashMessage( uint16 flashTime );
+void  AF_To_R_From_C(afAddrType_t *srcAddr,char *pdata, uint16 len);
 
 /*********************************************************************
  * NETWORK LAYER CALLBACKS
  */
+
 
 /*********************************************************************
  * PUBLIC FUNCTIONS
@@ -168,8 +171,28 @@ void SampleApp_SendFlashMessage( uint16 flashTime );
 void deal_data(char *pData, uint16 dataLen)
 {
       
-  HalUARTWrite(0, pData, dataLen);//串口发送
+  HalUARTWrite(0, (uint8*)pData, dataLen);//串口发送
+
 }
+
+void  AF_To_R_From_C(afAddrType_t *srcAddr,char *pdata, uint16 len)
+{
+	if ( AF_DataRequest( srcAddr, &SampleApp_epDesc,
+						 3,						
+						 len,
+						 (uint8 *)pdata,
+						 &SampleApp_TransID,
+						 AF_DISCV_ROUTE,
+						 AF_DEFAULT_RADIUS ) == afStatus_SUCCESS )
+	{
+		HalLedBlink(HAL_LED_2, 2, 50, 1000);
+	}
+	else
+	{
+	  // Error occurred in request to send.
+	}
+}
+
 
 uint8 uart_data_buffer[50];
 static void SerialApp_CallBack(uint8 port, uint8 event)
@@ -182,9 +205,9 @@ static void SerialApp_CallBack(uint8 port, uint8 event)
         //                                            SERIAL_APP_TX_MAX-SerialApp_TxLen);
 	
 	  uint8 crc_t; 
-      uint8 *tmp;
+      uint8 *data;
       Zg_Header_Struct *ph;
-           
+           Msg_Zg_WRT_transfer *mzwt;
 	  HalLedSet(HAL_LED_2, HAL_LED_MODE_TOGGLE);
       HalUARTRead(0, uart_data_buffer,sizeof(uart_data_buffer));
 	  ph  = (Zg_Header_Struct *)uart_data_buffer;
@@ -194,52 +217,33 @@ static void SerialApp_CallBack(uint8 port, uint8 event)
 	 {
 		switch(ph->msg_cmd)
 		{
-			case WRT_ZGB_DATA_CMD:		
-                tmp = (uint8 *)(uart_data_buffer + sizeof(Zg_Header_Struct) +sizeof(Msg_Zg_WRT_transfer));
-				deal_data(tmp,ph->msg_len - sizeof(Msg_Zg_WRT_transfer));
+			case WRT_ZGB_DATA_CMD:
+				mzwt = (Msg_Zg_WRT_transfer *)(uart_data_buffer + sizeof(Zg_Header_Struct));
+                data = (uint8 *)(uart_data_buffer + sizeof(Zg_Header_Struct) +sizeof(Msg_Zg_WRT_transfer));			
+				AF_To_R_From_C(&mzwt->end_dev_addr,(char*)data, ph->msg_len - sizeof(Msg_Zg_WRT_transfer));
+				break;
+			case ZGB_WRT_DATA_CMD:
+				
 				break;
 			default:
 				break;
 		}
 	}
-//	  uint8 command = uart_data_buffer[0];
-//	  uint8 value = uart_data_buffer[1];
-//	  switch(command)
-//	  {
 
-//		case 01: //write 
-//			osal_nv_item_init(TEST_NV,7,NULL);//NULL表示初始化的时候，item数据部分为空
-//			osal_nv_write(TEST_NV,0,2,&value);
-//			HalLedBlink(HAL_LED_1,5,60,500);
-//			break;
-//	    case 02:
-//			uint8 value_read;
-//			osal_nv_read(TEST_NV,0,1,&value_read);
-//			HalUARTWrite(0,(uint8 *)&value_read,sizeof(value_read));
-//			HalLedBlink(HAL_LED_3 ,5,50,1000);
-//			break;
-//		default:
-//			break;
-//	  }
-        
-       // HalUARTWrite(SERIAL_APP_PORT, SerialApp_TxBuf+1, SerialApp_TxLen);
    }
 
 }
 
-int  pack_msg_transfer(Msg_Zg_WRT_transfer *mzwt,uint8 *pdata, char *pout,uint16 dataLen)
+int  pack_msg_transfer(Msg_Zg_WRT_transfer *mzwt,uint8 *pdata,uint16 dataLen, char *pout)
 {
     char *pt;
     pt = pout;
 	Zg_Header_Struct hd;
-
 	
 	hd.head = 0x7e7e;
 	hd.msg_serial_num = globa_run_num++;
 	hd.msg_cmd = ZGB_WRT_DATA_CMD;
 	hd.msg_len = sizeof(Msg_Zg_WRT_transfer) + dataLen;// point size is 2 byte
-	//hd.crc8 = Calc_CRC8((char *)pdata, sizeof(Msg_Zg_WRT_transfer)+pdata->len);
-	//osal_memcpy(pt,(char *)&hd, sizeof(Zg_Header_Struct));
 	pt += sizeof(Zg_Header_Struct);
 
 	
@@ -257,25 +261,10 @@ int  pack_msg_transfer(Msg_Zg_WRT_transfer *mzwt,uint8 *pdata, char *pout,uint16
        
 }
 
-int pack_msg(uint16 cmdid, char *pdata, int len, char *pout)
-{
-	//uint16 tmp_len;
-	
-	Zg_Header_Struct hd;
-	hd.head = 0x7e7e;
-	hd.msg_cmd = cmdid;
-	hd.msg_len = len;
-//	hd.crc8 = Calc_CRC8(pdata, len);
-	osal_memcpy(pout,(char *)&hd, sizeof(hd));	
-	pout += sizeof(hd);
-	osal_memcpy(pout, pdata, len);
-	return sizeof(hd)+len;
-}
 
 int unpack_msg(char *pdata, int len)
 {
 	Zg_Header_Struct *hd;
-	//uint8  crc8;
 	if(len < sizeof(Zg_Header_Struct))
 	{
 		return -1;
@@ -383,6 +372,11 @@ void SampleApp_Init( uint8 task_id )
   SampleApp_Flash_DstAddr.endPoint = SAMPLEAPP_ENDPOINT;
   SampleApp_Flash_DstAddr.addr.shortAddr = SAMPLEAPP_FLASH_GROUP;
 
+  //P2P initialize
+  SampleApp_P2P_DstAddr.addrMode = (afAddrMode_t)Addr16Bit;
+  SampleApp_P2P_DstAddr.endPoint = SAMPLEAPP_ENDPOINT;  
+  SampleApp_P2P_DstAddr.addr.shortAddr = 0x0000;//发给协调器
+
   // Fill out the endpoint description.
   SampleApp_epDesc.endPoint = SAMPLEAPP_ENDPOINT;
   SampleApp_epDesc.task_id = &SampleApp_TaskID;
@@ -405,27 +399,21 @@ void SampleApp_Init( uint8 task_id )
   HalLcdWriteString( "SampleApp", HAL_LCD_LINE_1 );
 #endif
   
-  osal_start_timerEx( SampleApp_TaskID, SYS_EVENT_MSG_USER_TM,5000);
- // osal_set_event(SampleApp_TaskID,SYS_EVENT_MSG_USER_TM);
-  
-  
+//  osal_start_timerEx( SampleApp_TaskID, SYS_EVENT_MSG_USER_TM,5000);
 
-  /*
-   flash block
-  
-
-short int value_read = 0; 
-char str_read[8] ;
-short int value = 0x0304;
-char *str = "abcdefg";
-int temp = strlen(str);
-osal_nv_item_init(TEST_NV,7,NULL);//NULL表示初始化的时候，item数据部分为空
-int len = osal_nv_item_len(TEST_NV);
-osal_nv_write(TEST_NV,0,1,&value);
-int len2 = osal_nv_item_len(TEST_NV);
-osal_nv_read(TEST_NV,0,2,&value_read);
-*/
-
+   /*
+  	flash block
+  	short int value_read = 0; 
+	char str_read[8] ;
+	short int value = 0x0304;
+	char *str = "abcdefg";
+	int temp = strlen(str);
+	osal_nv_item_init(TEST_NV,7,NULL);//NULL表示初始化的时候，item数据部分为空
+	int len = osal_nv_item_len(TEST_NV);
+	osal_nv_write(TEST_NV,0,1,&value);
+	int len2 = osal_nv_item_len(TEST_NV);
+	osal_nv_read(TEST_NV,0,2,&value_read);
+    */
 
 }
 
@@ -450,8 +438,7 @@ uint16 SampleApp_ProcessEvent( uint8 task_id, uint16 events )
 {
   afIncomingMSGPacket_t *MSGpkt;
   (void)task_id;  // Intentionally unreferenced parameter
-  Msg_Zg_WRT_transfer rpst;
-  
+
   if ( events & SYS_EVENT_MSG )
   {
     MSGpkt = (afIncomingMSGPacket_t *)osal_msg_receive( SampleApp_TaskID );
@@ -473,8 +460,9 @@ uint16 SampleApp_ProcessEvent( uint8 task_id, uint16 events )
         case ZDO_STATE_CHANGE:
           SampleApp_NwkState = (devStates_t)(MSGpkt->hdr.status);
           if ( (SampleApp_NwkState == DEV_ZB_COORD)
-              || (SampleApp_NwkState == DEV_ROUTER)
-              || (SampleApp_NwkState == DEV_END_DEVICE) )
+              //|| (SampleApp_NwkState == DEV_ROUTER)
+              //|| (SampleApp_NwkState == DEV_END_DEVICE) 
+              )
           {
             // Start sending the periodic message in a regular interval.
             osal_start_timerEx( SampleApp_TaskID,
@@ -484,6 +472,7 @@ uint16 SampleApp_ProcessEvent( uint8 task_id, uint16 events )
           else
           {
             // Device is no longer in the network
+            osal_stop_timerEx(SampleApp_TaskID,SAMPLEAPP_SEND_PERIODIC_MSG_EVT);
           }
           break;
 
@@ -507,31 +496,26 @@ uint16 SampleApp_ProcessEvent( uint8 task_id, uint16 events )
   if ( events & SAMPLEAPP_SEND_PERIODIC_MSG_EVT )
   {
     // Send the periodic message
-    SampleApp_SendPeriodicMessage();
-
+    HalLedSet(HAL_LED_3,HAL_LED_MODE_TOGGLE);
+   // SampleApp_SendPeriodicMessage();
+	  //增加点播的发送函数 
     // Setup to send message again in normal period (+ a little jitter)
+
+
     osal_start_timerEx( SampleApp_TaskID, SAMPLEAPP_SEND_PERIODIC_MSG_EVT,
-        (SAMPLEAPP_SEND_PERIODIC_MSG_TIMEOUT + (osal_rand() & 0x00FF)) );
+        (SAMPLEAPP_SEND_PERIODIC_MSG_TIMEOUT ) );
 
     // return unprocessed events
     return (events ^ SAMPLEAPP_SEND_PERIODIC_MSG_EVT);
   }
-  if ( events & SYS_EVENT_MSG_USER_TM )
-  {
   
+  //user specific event
+  if ( events & SYS_EVENT_MSG_USER_TM )
+  {  
 
-      //Report_Status  rpst;
-      osal_memset(buf, 0, sizeof(buf));
-      rpst.src_type = 1;//for test
-      rpst.len = 6;//for test
-      rpst.end_dev_addr = 11465;//for test
-      buflen = pack_msg_transfer(&rpst,"987654", buf,6);
-	 // HalUARTWrite(0,"888",3);
-      HalUARTWrite(0, (uint8*)buf, buflen);//串口发送
-      HalLedSet(HAL_LED_3,HAL_LED_MODE_TOGGLE);
-      osal_start_timerEx( SampleApp_TaskID, SYS_EVENT_MSG_USER_TM,3000);
-      
-      return (events ^ SYS_EVENT_MSG_USER_TM);
+	
+	  
+	  return (events ^ SYS_EVENT_MSG_USER_TM);
   }
  
   // Discard unknown events
@@ -605,10 +589,19 @@ void SampleApp_HandleKeys( uint8 shift, uint8 keys )
  */
 void SampleApp_MessageMSGCB( afIncomingMSGPacket_t *pkt )
 {
-  uint16 flashTime;
-
+  uint16 flashTime;  
+  Msg_Zg_WRT_transfer rpst;
+	  osal_memset(buf, 0, sizeof(buf));
+	  rpst.src_type = 1;				//for test
+	  rpst.len = pkt->cmd.DataLength;	//for test
+	  rpst.end_dev_addr = pkt->srcAddr;	//for test
+	  buflen = pack_msg_transfer(&rpst,pkt->cmd.Data,pkt->cmd.DataLength, buf);
+	  HalUARTWrite(0, (uint8*)buf, buflen);//串口发送
+	  HalLedSet(HAL_LED_3,HAL_LED_MODE_TOGGLE);
+	  return;
   switch ( pkt->clusterId )
   {
+  	HalLedSet(HAL_LED_4,HAL_LED_MODE_TOGGLE);
     case SAMPLEAPP_PERIODIC_CLUSTERID:
       break;
 
@@ -616,65 +609,20 @@ void SampleApp_MessageMSGCB( afIncomingMSGPacket_t *pkt )
       flashTime = BUILD_UINT16(pkt->cmd.Data[1], pkt->cmd.Data[2] );
       HalLedBlink( HAL_LED_4, 4, 50, (flashTime / 4) );
       break;
+	case SAMPLEAPP_R2C_CLUSTERID://
+	  
+      break;
+	case SAMPLEAPP_C2R_CLUSTERID://收到协调器发给路由的数据
+      HalUARTWrite(0, pkt->cmd.Data,  pkt->cmd.DataLength);//串口发送
+      break;
   }
 }
 
-/*********************************************************************
- * @fn      SampleApp_SendPeriodicMessage
- *
- * @brief   Send the periodic message.
- *
- * @param   none
- *
- * @return  none
- */
-void SampleApp_SendPeriodicMessage( void )
+
+
+void SampleApp_SendFlashMessage(uint16 flashTime)
 {
-  if ( AF_DataRequest( &SampleApp_Periodic_DstAddr, &SampleApp_epDesc,
-                       SAMPLEAPP_PERIODIC_CLUSTERID,
-                       1,
-                       (uint8*)&SampleAppPeriodicCounter,
-                       &SampleApp_TransID,
-                       AF_DISCV_ROUTE,
-                       AF_DEFAULT_RADIUS ) == afStatus_SUCCESS )
-  {
-  }
-  else
-  {
-    // Error occurred in request to send.
-  }
+
 }
-
-/*********************************************************************
- * @fn      SampleApp_SendFlashMessage
- *
- * @brief   Send the flash message to group 1.
- *
- * @param   flashTime - in milliseconds
- *
- * @return  none
- */
-void SampleApp_SendFlashMessage( uint16 flashTime )
-{
-  uint8 buffer[3];
-  buffer[0] = (uint8)(SampleAppFlashCounter++);
-  buffer[1] = LO_UINT16( flashTime );
-  buffer[2] = HI_UINT16( flashTime );
-
-  if ( AF_DataRequest( &SampleApp_Flash_DstAddr, &SampleApp_epDesc,
-                       SAMPLEAPP_FLASH_CLUSTERID,
-                       3,
-                       buffer,
-                       &SampleApp_TransID,
-                       AF_DISCV_ROUTE,
-                       AF_DEFAULT_RADIUS ) == afStatus_SUCCESS )
-  {
-  }
-  else
-  {
-    // Error occurred in request to send.
-  }
-}
-
 /*********************************************************************
 *********************************************************************/

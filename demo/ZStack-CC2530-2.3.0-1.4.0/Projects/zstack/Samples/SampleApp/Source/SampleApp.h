@@ -66,9 +66,12 @@ extern "C"
 #define SAMPLEAPP_MAX_CLUSTERS       2
 #define SAMPLEAPP_PERIODIC_CLUSTERID 1
 #define SAMPLEAPP_FLASH_CLUSTERID     2
+#define SAMPLEAPP_R2C_CLUSTERID       3                 //router to coordinator
+#define SAMPLEAPP_C2R_CLUSTERID       4                 //coordinator to router
+
 
 // Send Message Timeout
-#define SAMPLEAPP_SEND_PERIODIC_MSG_TIMEOUT   5000     // Every 5 seconds
+#define SAMPLEAPP_SEND_PERIODIC_MSG_TIMEOUT   1000     // Every 5 seconds
 
 // Application Events (OSAL) - These are bit weighted definitions.
 #define SAMPLEAPP_SEND_PERIODIC_MSG_EVT       0x0001

@@ -204,7 +204,8 @@ uint8 zgUseDefaultTCLK = TRUE; // FALSE
  */
 
 // Configured PAN ID
-uint16 zgConfigPANID = ZDAPP_CONFIG_PAN_ID;
+//uint16 zgConfigPANID = ZDAPP_CONFIG_PAN_ID;
+	uint16 zgConfigPANID = 0xffff;
 
 // Device Logical Type
 uint8 zgDeviceLogicalType = DEVICE_LOGICAL_TYPE;

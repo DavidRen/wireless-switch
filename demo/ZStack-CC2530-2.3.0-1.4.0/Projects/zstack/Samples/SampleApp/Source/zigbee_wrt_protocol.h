@@ -16,7 +16,7 @@ typedef enum
 {
 	OK = 0,
 	ERR = 1,
-};
+}xxx;
 
 typedef enum
 {
@@ -33,7 +33,7 @@ typedef enum
 	
 
 	
-};
+}ccccc;
 typedef struct
 {
 	uint16   head;//0x7e7e
@@ -46,7 +46,8 @@ typedef struct
 typedef struct
 {
 	uint8   src_type;//来源类型
-	uint16  end_dev_addr;// zigbee short address
+//	uint16  end_dev_addr;// zigbee short address
+	afAddrType_t	end_dev_addr;// zigbee  address
 	uint16  len;//透传数据
 	//uint8   *pdata;
 }Msg_Zg_WRT_transfer;//上行下行都用此数据结构 数据紧接在此结构体之后
@@ -77,8 +78,8 @@ int pack_msg(uint16 cmdid, char *pdata, int len, char *pout);
 
 int unpack_msg(char *pdata, int len);
 
-int  pack_msg_transfer(Msg_Zg_WRT_transfer *mzwt,uint8 *pdata, char *pout,uint16 dataLen);
 
+int  pack_msg_transfer(Msg_Zg_WRT_transfer *mzwt,uint8 *pdata,uint16 dataLen, char *pout);
 void deal_data(char *pData, uint16 dataLen);
 
 #endif
