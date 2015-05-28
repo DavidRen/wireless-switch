@@ -87,9 +87,7 @@ uint32 Ulu_SDK_Calc_CRC32 (uint8 *data, uint32 datalen)
   1.日    期   : 2014年10月31日
     作    者   : 毕晨光
     修改内容   : 新生成函数
- 
 *****************************************************************************/
-
 uint8 Calc_CRC8(uint8 *PData, uint32 Len)
 {
 	unsigned char Crc;

@@ -95,7 +95,7 @@
 /*********************************************************************
  * GLOBAL VARIABLES
  */
-uint8 globa_run_num = 0;
+
 uint8 Calc_CRC8(uint8 *PData, uint32 Len);
 // This list should be filled with Application specific Cluster IDs.
 const cId_t SampleApp_ClusterList[SAMPLEAPP_MAX_CLUSTERS] =
@@ -104,7 +104,7 @@ const cId_t SampleApp_ClusterList[SAMPLEAPP_MAX_CLUSTERS] =
   SAMPLEAPP_FLASH_CLUSTERID
 };
 
-const SimpleDescriptionFormat_t SampleApp_SimpleDesc =
+SimpleDescriptionFormat_t SampleApp_SimpleDesc =
 {
   SAMPLEAPP_ENDPOINT,              //  int Endpoint;
   SAMPLEAPP_PROFID,                //  uint16 AppProfId[2];
@@ -139,16 +139,22 @@ uint8 SampleApp_TaskID;   // Task ID for internal task/event processing
                           // SampleApp_Init() is called.
 devStates_t SampleApp_NwkState;
 
-uint8 SampleApp_TransID;  // This is the unique message ID (counter)
+//uint8 SampleApp_TransID;  // This is the unique message ID (counter)
+uint8 globa_run_num = 0;
 
-afAddrType_t SampleApp_Periodic_DstAddr;
-afAddrType_t SampleApp_Flash_DstAddr;
-afAddrType_t SampleApp_P2P_DstAddr;
+//afAddrType_t SampleApp_Periodic_DstAddr;
+//afAddrType_t SampleApp_Flash_DstAddr;
+//afAddrType_t SampleApp_P2P_DstAddr;
 
 aps_Group_t SampleApp_Group;
 
-uint8 SampleAppPeriodicCounter = 0;
-uint8 SampleAppFlashCounter = 0;
+//uint8 SampleAppPeriodicCounter = 0;
+//uint8 SampleAppFlashCounter = 0;
+uint8 uart_data_buffer[50];
+
+//static  uint8     user_endpoint;//端口
+//static  uint16    user_profile_id;//应用工程id 两个zigbee要一样才可以通讯
+//static  uint16    user_panid;
 
 /*********************************************************************
  * LOCAL FUNCTIONS
@@ -158,6 +164,7 @@ void SampleApp_MessageMSGCB( afIncomingMSGPacket_t *pckt );
 void SampleApp_SendPeriodicMessage( void );
 void SampleApp_SendFlashMessage( uint16 flashTime );
 void  AF_To_R_From_C(afAddrType_t *srcAddr,char *pdata, uint16 len);
+int  pack_msg_ack_param(Msg_WRT_Zg_Set_Get_info *mzwt, char *pout);
 
 /*********************************************************************
  * NETWORK LAYER CALLBACKS
@@ -168,20 +175,13 @@ void  AF_To_R_From_C(afAddrType_t *srcAddr,char *pdata, uint16 len);
  * PUBLIC FUNCTIONS
  */
 
-void deal_data(char *pData, uint16 dataLen)
-{
-      
-  HalUARTWrite(0, (uint8*)pData, dataLen);//串口发送
-
-}
-
 void  AF_To_R_From_C(afAddrType_t *srcAddr,char *pdata, uint16 len)
 {
 	if ( AF_DataRequest( srcAddr, &SampleApp_epDesc,
 						 3,						
 						 len,
 						 (uint8 *)pdata,
-						 &SampleApp_TransID,
+						 &globa_run_num++,
 						 AF_DISCV_ROUTE,
 						 AF_DEFAULT_RADIUS ) == afStatus_SUCCESS )
 	{
@@ -193,27 +193,66 @@ void  AF_To_R_From_C(afAddrType_t *srcAddr,char *pdata, uint16 len)
 	}
 }
 
+#define      PANID_PROFILE_ENDPOINT_ADDR     0x0202
 
-uint8 uart_data_buffer[50];
+void   Set_Zgb_param(Msg_WRT_Zg_Set_Get_info *pinfo)
+{
+	uint8   tempbuf[6];
+	
+	tempbuf[0] = pinfo->panid;
+	tempbuf[1] = pinfo->panid >> 8;
+
+	tempbuf[2] = pinfo->profileid;
+	tempbuf[3] = pinfo->profileid >> 8;
+
+	tempbuf[4] = pinfo->endpoint;
+
+	
+	if ( osal_nv_item_init(PANID_PROFILE_ENDPOINT_ADDR, 5, NULL) == ZSUCCESS)
+	{
+		if(osal_nv_write(PANID_PROFILE_ENDPOINT_ADDR,0, 5, tempbuf) == ZSUCCESS)
+		{
+			//ack
+		}	    
+	}
+
+}
+// return wrt zgb param
+void  Get_Zgb_param(void)
+{
+	Msg_WRT_Zg_Set_Get_info param;
+	uint16  datalen;
+	uint8   tempbuf[6];
+    osal_memset(tempbuf,0,6);
+	 
+	if(osal_nv_read(PANID_PROFILE_ENDPOINT_ADDR,0, 2, &tempbuf) == ZSUCCESS)
+	{
+		param.panid = tempbuf[0] + (tempbuf[1]<<8);
+		param.profileid = tempbuf[2] + (tempbuf[3]<<8);
+		param.endpoint = tempbuf[4];	
+		
+		datalen = pack_msg_ack_param(&param,  uart_data_buffer);
+		HalUARTWrite(0, uart_data_buffer, datalen);
+	}			
+}
+
 static void SerialApp_CallBack(uint8 port, uint8 event)
 {
-  (void)port;
-	
   if ((event & (HAL_UART_RX_FULL | HAL_UART_RX_ABOUT_FULL | HAL_UART_RX_TIMEOUT)))
    {
        // HalUARTRead(SERIAL_APP_PORT, SerialApp_TxBuf+SerialApp_TxLen+1,
-        //                                            SERIAL_APP_TX_MAX-SerialApp_TxLen);
-	
+        //                                            SERIAL_APP_TX_MAX-SerialApp_TxLen);	
+        
 	  uint8 crc_t; 
       uint8 *data;
       Zg_Header_Struct *ph;
-           Msg_Zg_WRT_transfer *mzwt;
-	  HalLedSet(HAL_LED_2, HAL_LED_MODE_TOGGLE);
+      Msg_Zg_WRT_transfer *mzwt;
+//	  HalLedSet(HAL_LED_2, HAL_LED_MODE_TOGGLE);
       HalUARTRead(0, uart_data_buffer,sizeof(uart_data_buffer));
 	  ph  = (Zg_Header_Struct *)uart_data_buffer;
-	  crc_t = Calc_CRC8(uart_data_buffer + sizeof(Zg_Header_Struct),ph->msg_len);
+	  crc_t = Calc_CRC8(uart_data_buffer + sizeof(Zg_Header_Struct), ph->msg_len);
 	 
-	if(ph->crc8 == crc_t)
+	 if(ph->crc8 == crc_t)
 	 {
 		switch(ph->msg_cmd)
 		{
@@ -222,16 +261,40 @@ static void SerialApp_CallBack(uint8 port, uint8 event)
                 data = (uint8 *)(uart_data_buffer + sizeof(Zg_Header_Struct) +sizeof(Msg_Zg_WRT_transfer));			
 				AF_To_R_From_C(&mzwt->end_dev_addr,(char*)data, ph->msg_len - sizeof(Msg_Zg_WRT_transfer));
 				break;
-			case ZGB_WRT_DATA_CMD:
-				
+
+			case WRT_ZGB_SET_INFO_CMD:
+				Set_Zgb_param((Msg_WRT_Zg_Set_Get_info *)(uart_data_buffer + sizeof(Zg_Header_Struct)));
+				break;
+			case WRT_ZGB_GET_INFO_CMD:
+				Get_Zgb_param();
 				break;
 			default:
 				break;
 		}
 	}
-
    }
 
+}
+
+int pack_msg_ack_param(Msg_WRT_Zg_Set_Get_info *mzwt, char *pout)
+{
+	char *pt;
+    pt = pout;
+	Zg_Header_Struct hd;
+	
+	hd.head = 0x7e7e;
+	hd.msg_serial_num = globa_run_num++;
+	hd.msg_cmd = ZGB_WRT_ACK_INFO_CMD;
+	hd.msg_len = sizeof(Msg_WRT_Zg_Set_Get_info) ;
+	pt += sizeof(Zg_Header_Struct);
+	
+	osal_memcpy(pt, (char *)mzwt, sizeof(Msg_WRT_Zg_Set_Get_info));
+	pt += sizeof(Msg_WRT_Zg_Set_Get_info);
+
+	hd.crc8 = Calc_CRC8((uint8 *)pout+sizeof(hd), hd.msg_len);
+	osal_memcpy(pout,(char *)&hd, sizeof(Zg_Header_Struct));
+
+	return hd.msg_len + sizeof(Zg_Header_Struct);       	
 }
 
 int  pack_msg_transfer(Msg_Zg_WRT_transfer *mzwt,uint8 *pdata,uint16 dataLen, char *pout)
@@ -245,7 +308,6 @@ int  pack_msg_transfer(Msg_Zg_WRT_transfer *mzwt,uint8 *pdata,uint16 dataLen, ch
 	hd.msg_cmd = ZGB_WRT_DATA_CMD;
 	hd.msg_len = sizeof(Msg_Zg_WRT_transfer) + dataLen;// point size is 2 byte
 	pt += sizeof(Zg_Header_Struct);
-
 	
 	osal_memcpy(pt,(char *)mzwt, sizeof(Msg_Zg_WRT_transfer));
 	pt += sizeof(Msg_Zg_WRT_transfer);
@@ -255,50 +317,28 @@ int  pack_msg_transfer(Msg_Zg_WRT_transfer *mzwt,uint8 *pdata,uint16 dataLen, ch
 	hd.crc8 = Calc_CRC8((uint8 *)pout+sizeof(hd), hd.msg_len);
 	osal_memcpy(pout,(char *)&hd, sizeof(Zg_Header_Struct));
 
-	return hd.msg_len + sizeof(Zg_Header_Struct);
-        
-        
-       
+	return hd.msg_len + sizeof(Zg_Header_Struct);                       
 }
 
-
-int unpack_msg(char *pdata, int len)
+/*
+init from flash
+*/
+int  init_from_flash(void)
 {
-	Zg_Header_Struct *hd;
-	if(len < sizeof(Zg_Header_Struct))
-	{
-		return -1;
-	}
-	hd = (Zg_Header_Struct*)pdata;
-	if(hd->head == 0x7e7e)
-	{
-	//	crc8 = Calc_CRC8(pdata+sizeof(Zg_Header_Struct), hd->msg_len);
-	//	if(crc == hd->crc8)
-		{
-			switch(hd->msg_cmd)
-			{
-				//wrt -> zgb
-				case WRT_ZGB_ACK:
-				
-				break;
-				case WRT_ZGB_SET_INFO_CMD:
-				
-				break;
-				case WRT_ZGB_GET_INFO_CMD:
-				
-				break;
-				//zgb->wrt
-				case ZGB_WRT_ACK:
-				
-				break;
-				default:
-				break;
-			}
-		}
-	}
-return 0;
-}
 
+	uint8   tempbuf[6];
+    osal_memset(tempbuf,0,6);
+	 
+	if(osal_nv_read(PANID_PROFILE_ENDPOINT_ADDR,0, 2, &tempbuf) == ZSUCCESS)
+	{
+//		user_panid = tempbuf[0] + (tempbuf[1] << 8);
+
+		SampleApp_SimpleDesc.AppProfId = tempbuf[2] + (tempbuf[3] << 8);
+
+		SampleApp_epDesc.endPoint=tempbuf[4];
+	
+	}
+}
 /*********************************************************************
  * @fn      SampleApp_Init
  *
@@ -318,7 +358,7 @@ void SampleApp_Init( uint8 task_id )
 { 
   SampleApp_TaskID = task_id;
   SampleApp_NwkState = DEV_INIT;
-  SampleApp_TransID = 0;
+//  SampleApp_TransID = 0;
   
   //------------------------配置串口---------------------------------
   //MT_UartInit();                    //串口初始化
@@ -363,37 +403,50 @@ void SampleApp_Init( uint8 task_id )
 
   // Setup for the periodic message's destination address
   // Broadcast to everyone
-  SampleApp_Periodic_DstAddr.addrMode = (afAddrMode_t)AddrBroadcast;
-  SampleApp_Periodic_DstAddr.endPoint = SAMPLEAPP_ENDPOINT;
-  SampleApp_Periodic_DstAddr.addr.shortAddr = 0xFFFF;
+//  SampleApp_Periodic_DstAddr.addrMode = (afAddrMode_t)AddrBroadcast;
+//  SampleApp_Periodic_DstAddr.endPoint = SAMPLEAPP_ENDPOINT;
+//  SampleApp_Periodic_DstAddr.addr.shortAddr = 0xFFFF;
 
   // Setup for the flash command's destination address - Group 1
-  SampleApp_Flash_DstAddr.addrMode = (afAddrMode_t)afAddrGroup;
-  SampleApp_Flash_DstAddr.endPoint = SAMPLEAPP_ENDPOINT;
-  SampleApp_Flash_DstAddr.addr.shortAddr = SAMPLEAPP_FLASH_GROUP;
+//  SampleApp_Flash_DstAddr.addrMode = (afAddrMode_t)afAddrGroup;
+//  SampleApp_Flash_DstAddr.endPoint = SAMPLEAPP_ENDPOINT;
+//  SampleApp_Flash_DstAddr.addr.shortAddr = SAMPLEAPP_FLASH_GROUP;
 
   //P2P initialize
-  SampleApp_P2P_DstAddr.addrMode = (afAddrMode_t)Addr16Bit;
-  SampleApp_P2P_DstAddr.endPoint = SAMPLEAPP_ENDPOINT;  
-  SampleApp_P2P_DstAddr.addr.shortAddr = 0x0000;//发给协调器
+//  SampleApp_P2P_DstAddr.addrMode = (afAddrMode_t)Addr16Bit;
+//  SampleApp_P2P_DstAddr.endPoint = SAMPLEAPP_ENDPOINT;  
+//  SampleApp_P2P_DstAddr.addr.shortAddr = 0x0000;//发给协调器
+
+
 
   // Fill out the endpoint description.
-  SampleApp_epDesc.endPoint = SAMPLEAPP_ENDPOINT;
+  uint8   tempbuf[6];
+  osal_memset(tempbuf,0,6);
+   
+  if(osal_nv_read(PANID_PROFILE_ENDPOINT_ADDR,0, 6, &tempbuf) == ZSUCCESS)
+  {
+//	  user_panid = tempbuf[0] + (tempbuf[1] << 8);
+	  SampleApp_SimpleDesc.AppProfId = tempbuf[2] + (tempbuf[3] << 8);
+	  SampleApp_SimpleDesc.EndPoint=tempbuf[4];
+	  SampleApp_epDesc.endPoint[4];
+  }
+
+  
+//  SampleApp_epDesc.endPoint = SAMPLEAPP_ENDPOINT;
   SampleApp_epDesc.task_id = &SampleApp_TaskID;
-  SampleApp_epDesc.simpleDesc
-            = (SimpleDescriptionFormat_t *)&SampleApp_SimpleDesc;
+  SampleApp_epDesc.simpleDesc = (SimpleDescriptionFormat_t *)&SampleApp_SimpleDesc;
   SampleApp_epDesc.latencyReq = noLatencyReqs;
 
   // Register the endpoint description with the AF
   afRegister( &SampleApp_epDesc );
 
   // Register for all key events - This app will handle all key events
-  RegisterForKeys( SampleApp_TaskID );
+//  RegisterForKeys( SampleApp_TaskID );
 
   // By default, all devices start out in Group 1
   SampleApp_Group.ID = 0x0001;
   osal_memcpy( SampleApp_Group.name, "Group 1", 7  );
-  aps_AddGroup( SAMPLEAPP_ENDPOINT, &SampleApp_Group );
+  aps_AddGroup( SAMPLEAPP_ENDPOINT, &SampleApp_Group);
 
 #if defined ( LCD_SUPPORTED )
   HalLcdWriteString( "SampleApp", HAL_LCD_LINE_1 );

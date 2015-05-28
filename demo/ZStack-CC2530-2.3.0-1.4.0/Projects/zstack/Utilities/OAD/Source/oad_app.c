@@ -330,6 +330,8 @@ void oadAppInit(uint8 id)
   RegisterForKeys(oad_app_taskId);
   mtxMode = TRUE;
 #endif
+
+	
 }
 
 /**************************************************************************************************

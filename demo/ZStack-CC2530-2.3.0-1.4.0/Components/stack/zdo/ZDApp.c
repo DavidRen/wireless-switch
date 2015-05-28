@@ -257,6 +257,13 @@ void ZDApp_Init( uint8 task_id )
   // Check for manual "Hold Auto Start"
   ZDAppCheckForHoldKey();
 
+  //----从flash加载网络id
+  if(osal_nv_read(PANID_PROFILE_ENDPOINT_ADDR,0, 2, &zgConfigPANID) != ZSUCCESS)
+  {
+ 	 zgConfigPANID = 0xffff;//失败了就设置为ffff
+  }	
+	 
+	
   // Initialize ZDO items and setup the device - type of device to create.
   ZDO_Init();
 

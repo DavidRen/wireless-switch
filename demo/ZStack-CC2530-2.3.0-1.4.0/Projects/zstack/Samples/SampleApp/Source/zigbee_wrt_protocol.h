@@ -30,9 +30,7 @@ typedef enum
 	WRT_ZGB_SET_INFO_CMD = 0x8003,//
 	WRT_ZGB_GET_INFO_CMD = 0x8004,//无消息体
 	ZGB_WRT_ACK_INFO_CMD = 0x0003,//应答信息
-	
-
-	
+		
 }ccccc;
 typedef struct
 {
@@ -55,14 +53,11 @@ typedef struct
 typedef struct
 {
 	uint16  panid;// zigbee panid
-	uint8   Reserved[10];
-}Msg_WRT_Zg_Set_info;
+	uint16  profileid;
+	uint8   endpoint;
+	uint8   Reserved[6];
+}Msg_WRT_Zg_Set_Get_info;//上行下行都用此数据结构 
 
-typedef struct
-{
-	uint16  panid;// zigbee panid
-	uint8   Reserved[10];
-}Msg_Zg_WRT_Ack_info;
 
 //Report_Status  rpst;
 //rpst.end_dev_nums = 0;
@@ -70,8 +65,6 @@ typedef struct
 //int   buflen;
 //buflen = pack_msg(0x01, &rpst, sizeof(rpst), buf);
 //send(buf, buflen);
-
-
 
 
 int pack_msg(uint16 cmdid, char *pdata, int len, char *pout);
