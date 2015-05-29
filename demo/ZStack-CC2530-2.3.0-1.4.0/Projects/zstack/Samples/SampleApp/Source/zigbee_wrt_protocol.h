@@ -44,7 +44,6 @@ typedef struct
 typedef struct
 {
 	uint8   src_type;//来源类型
-//	uint16  end_dev_addr;// zigbee short address
 	afAddrType_t	end_dev_addr;// zigbee  address
 	uint16  len;//透传数据
 	//uint8   *pdata;

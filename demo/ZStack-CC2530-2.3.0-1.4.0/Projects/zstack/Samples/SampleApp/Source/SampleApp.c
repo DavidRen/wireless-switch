@@ -95,7 +95,9 @@
 /*********************************************************************
  * GLOBAL VARIABLES
  */
-
+int  init_from_flash(void);
+void   Set_Zgb_param(Msg_WRT_Zg_Set_Get_info *pinfo);
+void  Get_Zgb_param(void);
 uint8 Calc_CRC8(uint8 *PData, uint32 Len);
 // This list should be filled with Application specific Cluster IDs.
 const cId_t SampleApp_ClusterList[SAMPLEAPP_MAX_CLUSTERS] =
@@ -178,10 +180,10 @@ int  pack_msg_ack_param(Msg_WRT_Zg_Set_Get_info *mzwt, char *pout);
 void  AF_To_R_From_C(afAddrType_t *srcAddr,char *pdata, uint16 len)
 {
 	if ( AF_DataRequest( srcAddr, &SampleApp_epDesc,
-						 3,						
+						 3,	/*cluster ID  没有处理*/					
 						 len,
 						 (uint8 *)pdata,
-						 &globa_run_num++,
+						 &globa_run_num,
 						 AF_DISCV_ROUTE,
 						 AF_DEFAULT_RADIUS ) == afStatus_SUCCESS )
 	{
@@ -193,7 +195,7 @@ void  AF_To_R_From_C(afAddrType_t *srcAddr,char *pdata, uint16 len)
 	}
 }
 
-#define      PANID_PROFILE_ENDPOINT_ADDR     0x0202
+
 
 void   Set_Zgb_param(Msg_WRT_Zg_Set_Get_info *pinfo)
 {
@@ -223,15 +225,15 @@ void  Get_Zgb_param(void)
 	Msg_WRT_Zg_Set_Get_info param;
 	uint16  datalen;
 	uint8   tempbuf[6];
-    osal_memset(tempbuf,0,6);
+       osal_memset(tempbuf,0,6);
 	 
-	if(osal_nv_read(PANID_PROFILE_ENDPOINT_ADDR,0, 2, &tempbuf) == ZSUCCESS)
+	if(osal_nv_read(PANID_PROFILE_ENDPOINT_ADDR,0, 6, &tempbuf) == ZSUCCESS)
 	{
 		param.panid = tempbuf[0] + (tempbuf[1]<<8);
 		param.profileid = tempbuf[2] + (tempbuf[3]<<8);
 		param.endpoint = tempbuf[4];	
 		
-		datalen = pack_msg_ack_param(&param,  uart_data_buffer);
+		datalen = pack_msg_ack_param(&param,  (char*)uart_data_buffer);
 		HalUARTWrite(0, uart_data_buffer, datalen);
 	}			
 }
@@ -336,8 +338,9 @@ int  init_from_flash(void)
 		SampleApp_SimpleDesc.AppProfId = tempbuf[2] + (tempbuf[3] << 8);
 
 		SampleApp_epDesc.endPoint=tempbuf[4];
-	
+  	        return 0;
 	}
+        return -1;
 }
 /*********************************************************************
  * @fn      SampleApp_Init
@@ -428,7 +431,7 @@ void SampleApp_Init( uint8 task_id )
 //	  user_panid = tempbuf[0] + (tempbuf[1] << 8);
 	  SampleApp_SimpleDesc.AppProfId = tempbuf[2] + (tempbuf[3] << 8);
 	  SampleApp_SimpleDesc.EndPoint=tempbuf[4];
-	  SampleApp_epDesc.endPoint[4];
+	  SampleApp_epDesc.endPoint=tempbuf[4];
   }
 
   
@@ -642,8 +645,8 @@ void SampleApp_HandleKeys( uint8 shift, uint8 keys )
  */
 void SampleApp_MessageMSGCB( afIncomingMSGPacket_t *pkt )
 {
-  uint16 flashTime;  
-  Msg_Zg_WRT_transfer rpst;
+//  uint16 flashTime;  
+          Msg_Zg_WRT_transfer rpst;
 	  osal_memset(buf, 0, sizeof(buf));
 	  rpst.src_type = 1;				//for test
 	  rpst.len = pkt->cmd.DataLength;	//for test
@@ -651,7 +654,8 @@ void SampleApp_MessageMSGCB( afIncomingMSGPacket_t *pkt )
 	  buflen = pack_msg_transfer(&rpst,pkt->cmd.Data,pkt->cmd.DataLength, buf);
 	  HalUARTWrite(0, (uint8*)buf, buflen);//串口发送
 	  HalLedSet(HAL_LED_3,HAL_LED_MODE_TOGGLE);
-	  return;
+	 // return;
+          /*
   switch ( pkt->clusterId )
   {
   	HalLedSet(HAL_LED_4,HAL_LED_MODE_TOGGLE);
@@ -669,6 +673,7 @@ void SampleApp_MessageMSGCB( afIncomingMSGPacket_t *pkt )
       HalUARTWrite(0, pkt->cmd.Data,  pkt->cmd.DataLength);//串口发送
       break;
   }
+          */
 }
 
 
